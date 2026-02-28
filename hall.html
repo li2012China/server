@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>名人堂 - LISSERVER</title>
+  <link rel="stylesheet" href="style.css" />
+  <link id="favicon" rel="icon" href="" type="image/png" />
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="logo">
+      <img id="server-icon" src="" alt="服务器图标" class="logo-icon-img" style="display: none;" />
+      <div class="logo-icon" id="logo-fallback">⛏</div>
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">首页</a>
+      <a href="hall.html">名人堂</a>
+      <a href="index.html#status">服务器状态</a>
+      <a href="index.html#map">3D地图</a>
+      <a href="index.html#features">特色</a>
+      <a href="index.html#feedback">意见反馈</a>
+      <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <!-- 菜单背景遮罩 -->
+  <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+  <!-- 名人堂内容 -->
+  <section class="hall-section">
+    <div class="hall-header">
+      <h1 class="hall-title">名人堂</h1>
+      <p class="hall-subtitle">LISSERVER 服务器的杰出玩家们</p>
+    </div>
+
+    <div class="hall-grid">
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/Browlmc.png" alt="Browlmc" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">Browlmc</div>
+        </div>
+        <div class="hall-info">
+          <h3>Browlmc</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/kanwentong.png" alt="kanwentong" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">kanwentong</div>
+        </div>
+        <div class="hall-info">
+          <h3>kanwentong</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/kjq2012.png" alt="kjq2012" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">kjq2012</div>
+        </div>
+        <div class="hall-info">
+          <h3>kjq2012</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/li2012China.png" alt="li2012China" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">li2012China</div>
+        </div>
+        <div class="hall-info">
+          <h3>li2012China</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/tiebai.png" alt="tiebai" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">tiebai</div>
+        </div>
+        <div class="hall-info">
+          <h3>tiebai</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/wangkaikai111.png" alt="wangkaikai111" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">wangkaikai111</div>
+        </div>
+        <div class="hall-info">
+          <h3>wangkaikai111</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/wyf666.png" alt="wyf666" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">wyf666</div>
+        </div>
+        <div class="hall-info">
+          <h3>wyf666</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+
+      <div class="hall-card">
+        <div class="hall-poster">
+          <img src="images/players/xiaoyang2011.png" alt="xiaoyang2011" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+          <div class="hall-fallback" style="display: none;">xiaoyang2011</div>
+        </div>
+        <div class="hall-info">
+          <h3>xiaoyang2011</h3>
+          <p class="hall-desc">默认文本</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>&copy; <span id="current-year"></span> LISSERVER. 作者：马太Matthew</p>
+    <div class="footer-links">
+      <a href="index.html">返回首页</a>
+      <a href="http://103.85.86.51:22621" target="_blank">3D地图</a>
+    </div>
+    <p class="footer-made-with">Made with ❤️ and AI.</p>
+  </footer>
+
+  <!-- 提示消息 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 显示提示消息
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 设置当前年份
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // 切换移动端菜单
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuOverlay = document.getElementById('menu-overlay');
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+    }
+
+    // 点击导航链接后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.getElementById('nav-links');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+      });
+    });
+
+    // 加载服务器图标
+    async function loadServerIcon() {
+      try {
+        const response = await fetch('https://motd.minebbs.com/api/status?ip=play.simpfun.cn&port=17125');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.icon) {
+            const serverIcon = document.getElementById('server-icon');
+            const logoFallback = document.getElementById('logo-fallback');
+            const favicon = document.getElementById('favicon');
+            serverIcon.src = data.icon;
+            serverIcon.style.display = 'block';
+            logoFallback.style.display = 'none';
+            favicon.href = data.icon;
+          }
+        }
+      } catch (error) {
+        console.error('加载服务器图标失败:', error);
+      }
+    }
+
+    // 页面加载时获取服务器图标
+    document.addEventListener('DOMContentLoaded', loadServerIcon);
+  </script>
+</body>
+</html>

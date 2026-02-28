@@ -1,0 +1,991 @@
+/* ===========================================
+   LISSERVER 网站样式
+   基于 Metro 风格暗黑主题
+   =========================================== */
+
+/* 1. 变量定义 */
+:root {
+  --primary-color: #0078d7;
+  --primary-text-color: white;
+  --hue-rotate-deg: 0deg;
+}
+
+/* 2. 全局重置和基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 3. 基础布局样式 */
+html,
+body {
+  background-color: #171717;
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* 4. 导航栏 */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 1000;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.logo-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: #a2a2a2;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+/* QQ群按钮 - 醒目样式 */
+.nav-links a.qq-group-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: filter 0.2s ease;
+}
+
+.nav-links a.qq-group-btn:hover {
+  filter: brightness(1.1);
+  color: white;
+}
+
+/* 汉堡菜单按钮 */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1100;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+/* 响应式导航 */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #1f1f1f;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    gap: 0;
+    border-bottom: 1px solid #333;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex !important;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links a {
+    padding: 15px 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #333;
+  }
+
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  /* 移动端QQ群按钮样式 */
+  .nav-links a.qq-group-btn {
+    margin: 10px 20px;
+    width: calc(100% - 40px);
+    padding: 12px 16px;
+    background-color: var(--primary-color);
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* 菜单背景遮罩 */
+  .menu-overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 998;
+  }
+
+  .menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* 5. 主页横幅 */
+.hero-section {
+  margin-top: 60px;
+  padding: 0;
+  text-align: center;
+  background: linear-gradient(180deg, #1f1f1f 0%, #171717 100%);
+  border-bottom: 1px solid #333;
+}
+
+/* 图片轮播 */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 轮播内容覆盖层 */
+.carousel-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+  z-index: 5;
+}
+
+.carousel-content .hero-title-container {
+  margin-bottom: 20px;
+}
+
+.carousel-content .hero-title-img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.carousel-content .hero-title {
+  font-size: 56px;
+  font-weight: 300;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-content .hero-subtitle {
+  font-size: 20px;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* 轮播指示器 */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+  background-color: var(--primary-color);
+}
+
+.indicator:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 轮播图右下角文字说明 */
+.carousel-caption {
+  position: absolute;
+  bottom: 60px;
+  right: 30px;
+  text-align: right;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 15px 20px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.carousel-caption .caption-text {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.carousel-caption .caption-date {
+  font-size: 14px;
+  color: #a2a2a2;
+}
+
+/* 轮播箭头 */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev {
+  left: 20px;
+}
+
+.carousel-next {
+  right: 20px;
+}
+
+/* 6. 服务器状态卡片 */
+.status-section {
+  padding: 60px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.status-card {
+  background-color: #2a2a2a;
+  padding: 30px;
+  border-left: 3px solid var(--primary-color);
+  transition: transform 0.2s ease;
+}
+
+.status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.status-card h3 {
+  font-size: 16px;
+  color: #a2a2a2;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.status-card .value {
+  font-size: 24px;
+  color: white;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.status-card .copy-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #333;
+  border: 1px solid #444;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+  text-transform: uppercase;
+}
+
+.status-card .copy-btn:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #27ae60;
+  box-shadow: 0 0 5px #27ae60;
+  margin-right: 8px;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.offline {
+  background-color: #e74c3c;
+  box-shadow: 0 0 5px #e74c3c;
+  animation: none;
+}
+
+.status-indicator.loading {
+  background-color: #f39c12;
+  box-shadow: 0 0 5px #f39c12;
+  animation: pulse 1s infinite;
+}
+
+.server-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+}
+
+.server-info p {
+  font-size: 18px;
+  color: white;
+}
+
+/* 7. 版本支持 */
+.version-section {
+  padding: 60px 30px;
+  background-color: #1f1f1f;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.version-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.version-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.version-card {
+  background-color: #2a2a2a;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.version-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.version-icon {
+  width: 64px;
+  height: 64px;
+  background-color: #333;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.version-card h3 {
+  font-size: 20px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.version-card p {
+  color: #a2a2a2;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.version-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 13px;
+  margin-top: 15px;
+}
+
+/* 8. 3D地图区域 */
+.map-section {
+  padding: 60px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.map-container {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  margin-top: 30px;
+  position: relative;
+}
+
+.map-frame {
+  width: 100%;
+  height: 500px;
+  border: none;
+  background-color: #1f1f1f;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(23, 23, 23, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.map-overlay p {
+  color: #a2a2a2;
+  font-size: 16px;
+}
+
+.map-btn {
+  padding: 12px 30px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+  transition: filter 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.map-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* 地图加载中样式 */
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(23, 23, 23, 0.95);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 5;
+}
+
+.map-loading.visible {
+  display: flex;
+}
+
+.map-loading p {
+  color: #a2a2a2;
+  font-size: 16px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #333;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 9. 特色介绍 */
+.features-section {
+  padding: 60px 30px;
+  background-color: #1f1f1f;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.feature-card {
+  background-color: #2a2a2a;
+  padding: 25px;
+  border-left: 3px solid var(--primary-color);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card h4 {
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.feature-card p {
+  color: #a2a2a2;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* 10. 意见反馈 */
+.feedback-section {
+  padding: 60px 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feedback-form {
+  background-color: #2a2a2a;
+  padding: 40px;
+  margin-top: 30px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #a2a2a2;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid #444;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  outline: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* 11. 页脚 */
+.footer {
+  padding: 40px 30px;
+  background-color: #1f1f1f;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.footer p {
+  color: #a2a2a2;
+  font-size: 14px;
+}
+
+.footer-links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.footer-links a {
+  color: #a2a2a2;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+.footer-made-with {
+  margin-top: 20px;
+  font-weight: 600;
+  color: #666;
+}
+
+/* 16. 名人堂页面样式 */
+.hall-section {
+  margin-top: 60px;
+  padding: 60px 30px;
+  min-height: calc(100vh - 60px - 200px);
+}
+
+.hall-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hall-title {
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.hall-subtitle {
+  font-size: 18px;
+  color: #a2a2a2;
+}
+
+.hall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hall-card {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hall-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.hall-poster {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background-color: #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hall-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hall-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  color: var(--primary-color);
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.hall-info {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #333;
+}
+
+.hall-info h3 {
+  font-size: 18px;
+  color: white;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+}
+
+.hall-desc {
+  font-size: 14px;
+  color: #a2a2a2;
+  margin: 0;
+}
+
+/* 12. 动画定义 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+  }
+}
+
+/* 13. 响应式设计 */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 15px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-motto {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .hero-motto span {
+    display: block;
+    margin: 5px 0;
+  }
+
+  .status-grid,
+  .version-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hall-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .hall-title {
+    font-size: 32px;
+  }
+
+  .hall-subtitle {
+    font-size: 16px;
+  }
+
+  .map-frame {
+    height: 300px;
+  }
+
+  .feedback-form {
+    padding: 25px;
+  }
+}
+
+/* 14. 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+}
+
+/* 15. 提示消息 */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
