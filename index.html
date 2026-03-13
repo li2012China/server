@@ -275,8 +275,8 @@
       refreshBtn.textContent = '刷新中...';
 
       try {
-        // 查询 Java 版服务器 - 使用 motd.minebbs.com API
-        const response = await fetch('https://motd.minebbs.com/api/status?ip=play.simpfun.cn&port=17125');
+        // 查询 Java 版服务器 - 使用 motdbe.blackbe.work API
+        const response = await fetch('https://motdbe.blackbe.work/api/java?host=play.simpfun.cn:17125');
 
         if (!response.ok) {
           throw new Error('API 响应错误: ' + response.status);
@@ -286,23 +286,23 @@
         console.log('API 响应:', data);
 
         // 更新服务器图标
-        if (data.icon) {
+        if (data.favicon) {
           const serverIcon = document.getElementById('server-icon');
           const logoFallback = document.getElementById('logo-fallback');
           const favicon = document.getElementById('favicon');
-          serverIcon.src = data.icon;
+          serverIcon.src = data.favicon;
           serverIcon.style.display = 'block';
           logoFallback.style.display = 'none';
           // 更新标签页图标
-          favicon.href = data.icon;
+          favicon.href = data.favicon;
         }
 
         if (data.status === 'online') {
           // 服务器在线
           statusDot.className = 'status-indicator';
           statusText.textContent = '在线';
-          playerCount.textContent = data.players?.online ?? 0;
-          maxPlayers.textContent = data.players?.max ?? '--';
+          playerCount.textContent = data.online ?? 0;
+          maxPlayers.textContent = data.max ?? '--';
           serverVersion.textContent = data.version || '未知版本';
           serverInfo.style.display = 'block';
           // 显示延迟
