@@ -10,7 +10,29 @@
   --hue-rotate-deg: 0deg;
 }
 
-/* 2. 全局重置和基础样式 */
+/* 2. 字体定义 */
+@font-face {
+  font-family: 'MinecraftFive';
+  src: url('fonts/MinecraftFive.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MinecraftSeven';
+  src: url('fonts/MinecraftSeven.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MinecraftTen';
+  src: url('fonts/MinecraftTen.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 3. 全局重置和基础样式 */
 * {
   margin: 0;
   padding: 0;
@@ -265,11 +287,11 @@ body {
 }
 
 .carousel-content .hero-title-container {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .carousel-content .hero-title-img {
-  max-width: 400px;
+  max-width: 600px;
   width: 100%;
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
