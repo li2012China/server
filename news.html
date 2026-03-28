@@ -32,10 +32,10 @@
     }
     
     .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 800px;
       margin: 0 auto;
     }
     
@@ -224,7 +224,11 @@
     /* 响应式设计 */
     @media (max-width: 768px) {
       .news-grid {
-        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+      
+      .news-card {
+        padding: 20px;
       }
       
       .modal-content {
