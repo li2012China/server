@@ -156,6 +156,56 @@
       margin-bottom: 15px;
     }
     
+    .modal-body h2 {
+      color: var(--primary-color);
+      font-size: 20px;
+      margin: 25px 0 15px;
+      font-weight: 400;
+    }
+    
+    .modal-body h3 {
+      color: white;
+      font-size: 18px;
+      margin: 20px 0 10px;
+      font-weight: 400;
+    }
+    
+    .modal-body h4 {
+      color: white;
+      font-size: 16px;
+      margin: 15px 0 8px;
+      font-weight: 400;
+    }
+    
+    .modal-body ul,
+    .modal-body ol {
+      margin: 15px 0;
+      padding-left: 25px;
+    }
+    
+    .modal-body li {
+      margin-bottom: 8px;
+    }
+    
+    .modal-body a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .modal-body a:hover {
+      text-decoration: underline;
+    }
+    
+    .modal-body strong {
+      color: white;
+      font-weight: 600;
+    }
+    
+    .modal-body em {
+      font-style: italic;
+    }
+    
     .close {
       color: #a2a2a2;
       float: right;
@@ -357,11 +407,30 @@
       
       // 处理Markdown内容
       let bodyContent = release.body || '无内容';
-      // 简单的Markdown转HTML
-      bodyContent = bodyContent.replace(/\n\n/g, '</p><p>').replace(/^/g, '<p>').replace(/$/g, '</p>');
+      // 增强的Markdown转HTML
+      
+      // 处理段落
+      bodyContent = bodyContent.replace(/^([^\n]+)(\n|$)/gm, '<p>$1</p>');
+      
+      // 处理粗体和斜体
+      bodyContent = bodyContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       bodyContent = bodyContent.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      bodyContent = bodyContent.replace(/\n- (.*?)/g, '<li>$1</li>');
-      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/s, '<ul>$1</ul>');
+      
+      // 处理无序列表
+      bodyContent = bodyContent.replace(/(^|\n)(-|\*)\s+(.+)/g, '$1<li>$3</li>');
+      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>');
+      
+      // 处理有序列表
+      bodyContent = bodyContent.replace(/(^|\n)(\d+)\.\s+(.+)/g, '$1<li>$3</li>');
+      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/gs, '<ol>$1</ol>');
+      
+      // 处理链接
+      bodyContent = bodyContent.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+      
+      // 处理标题
+      bodyContent = bodyContent.replace(/^# (.*)$/gm, '<h2>$1</h2>');
+      bodyContent = bodyContent.replace(/^## (.*)$/gm, '<h3>$1</h3>');
+      bodyContent = bodyContent.replace(/^### (.*)$/gm, '<h4>$1</h4>');
       
       modalBody.innerHTML = bodyContent;
       
