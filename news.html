@@ -223,6 +223,55 @@
       padding: 0;
     }
     
+    .files-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+    }
+    
+    .files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .file-item a {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+      background-color: #333;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      transition: background-color 0.2s ease;
+    }
+    
+    .file-item a:hover {
+      background-color: #444;
+    }
+    
+    .file-item a div:first-child {
+      font-size: 24px;
+    }
+    
+    .file-item a div:nth-child(2) {
+      flex: 1;
+    }
+    
+    .file-item a div:nth-child(2) div:first-child {
+      font-weight: 500;
+    }
+    
+    .file-item a div:nth-child(2) div:last-child {
+      font-size: 14px;
+      color: #a2a2a2;
+    }
+    
+    .file-item a div:last-child {
+      font-size: 16px;
+    }
+    
     .modal-body a {
       color: var(--primary-color);
       text-decoration: none;
@@ -469,6 +518,35 @@
       bodyContent = bodyContent.replace(/\[x\]/g, '<input type="checkbox" disabled checked>');
       
       modalBody.innerHTML = bodyContent;
+      
+      // 显示文件列表（如果有）
+      if (release.assets && release.assets.length > 0) {
+        const filesContainer = document.createElement('div');
+        filesContainer.className = 'files-section';
+        filesContainer.innerHTML = `
+          <h3>附件文件</h3>
+          <div class="files-list"></div>
+        `;
+        
+        const filesList = filesContainer.querySelector('.files-list');
+        release.assets.forEach(asset => {
+          const fileItem = document.createElement('div');
+          fileItem.className = 'file-item';
+          fileItem.innerHTML = `
+            <a href="${asset.browser_download_url}" target="_blank">
+              <div>📁</div>
+              <div>
+                <div>${asset.name}</div>
+                <div>${(asset.size / (1024 * 1024)).toFixed(2)} MB</div>
+              </div>
+              <div>↓</div>
+            </a>
+          `;
+          filesList.appendChild(fileItem);
+        });
+        
+        modalBody.appendChild(filesContainer);
+      }
       
       // 显示模态框
       modal.style.display = 'block';
