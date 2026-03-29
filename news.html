@@ -578,13 +578,11 @@
               </div>
             `;
           } else {
-            // 随机使用banner中的一张图片
-            const bannerImages = ['images/banner1.png', 'images/banner2.png', 'images/banner3.png'];
-            const randomBanner = bannerImages[Math.floor(Math.random() * bannerImages.length)];
+            // 使用placeholder.png作为默认图片
             newsCard.innerHTML = `
               <div class="news-card-content">
                 <div class="news-card-image">
-                  <img src="${randomBanner}" alt="新闻图片" />
+                  <img src="images/placeholder.png" alt="新闻图片" />
                 </div>
                 <div class="news-card-text">
                   <h3>${release.name || '无标题'}</h3>
