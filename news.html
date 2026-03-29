@@ -417,7 +417,11 @@
       bodyContent = bodyContent.replace(/^([^\n]+)(\n|$)/gm, '<p>$1</p>');
       
       // 处理粗体和斜体
+      // 先处理粗体加斜体 (***text***)
+      bodyContent = bodyContent.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      // 再处理粗体 (**text**)
       bodyContent = bodyContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // 最后处理斜体 (*text*)
       bodyContent = bodyContent.replace(/\*(.*?)\*/g, '<em>$1</em>');
       
       // 处理无序列表
