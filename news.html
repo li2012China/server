@@ -8,411 +8,352 @@
   <link id="favicon" rel="icon" href="" type="image/png" />
   <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
   <style>
-    /* ===========================================
-       Metro风格样式
-       =========================================== */
-      
-      /* 1. 变量定义 */
-      :root {
-        --primary-color: #0078d7;
-        --primary-text-color: white;
-        --hue-rotate-deg: 0deg;
+    /* 新闻页面样式 */
+    .news-section {
+      margin-top: 60px;
+      padding: 60px 30px;
+      min-height: calc(100vh - 60px - 200px);
+    }
+    
+    .news-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .news-title {
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+    
+    .news-subtitle {
+      font-size: 18px;
+      color: #a2a2a2;
+    }
+    
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .news-card {
+      background-color: #2a2a2a;
+      border-left: 3px solid var(--primary-color);
+      padding: 30px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .news-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .news-card h3 {
+      font-size: 20px;
+      color: white;
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+    
+    .news-card .news-date {
+      font-size: 14px;
+      color: #a2a2a2;
+      margin-bottom: 20px;
+    }
+    
+    .news-card .news-content {
+      color: #a2a2a2;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .news-card .news-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+    
+    .news-card .news-link:hover {
+      text-decoration: underline;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 60px 0;
+      color: #a2a2a2;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid #333;
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
-      
-      /* 2. 全局重置和基础样式 */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-      
-      /* 3. 基础布局样式 */
-      html, body {
-        background-color: #171717;
-        color: white;
-        line-height: 1.6;
-        overflow: auto;
-        height: auto;
-        width: auto;
-      }
-      
-      /* 4. 新闻页面样式 */
-      .news-section {
-        margin-top: 60px;
-        padding: 60px 30px;
-        min-height: calc(100vh - 60px - 200px);
-      }
-      
-      .news-header {
-        text-align: center;
-        margin-bottom: 50px;
-      }
-      
-      .news-title {
-        font-size: 42px;
-        font-weight: 300;
-        color: var(--primary-color);
-        margin-bottom: 15px;
-      }
-      
-      .news-subtitle {
-        font-size: 18px;
-        color: #a2a2a2;
-      }
-      
+    }
+    
+    /* 模态框样式 */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+    
+    .modal-content {
+      background-color: #2a2a2a;
+      margin: 10% auto;
+      padding: 40px;
+      border: 1px solid #333;
+      width: 80%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .modal-header {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .modal-title {
+      font-size: 24px;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    .modal-date {
+      font-size: 14px;
+      color: #a2a2a2;
+    }
+    
+    .modal-body {
+      color: #a2a2a2;
+      line-height: 1.6;
+    }
+    
+    .modal-body p {
+      margin-bottom: 15px;
+    }
+    
+    .modal-body h2 {
+      color: var(--primary-color);
+      font-size: 20px;
+      margin: 25px 0 15px;
+      font-weight: 400;
+    }
+    
+    .modal-body h3 {
+      color: white;
+      font-size: 18px;
+      margin: 20px 0 10px;
+      font-weight: 400;
+    }
+    
+    .modal-body h4 {
+      color: white;
+      font-size: 16px;
+      margin: 15px 0 8px;
+      font-weight: 400;
+    }
+    
+    .modal-body ul,
+    .modal-body ol {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+    
+    .modal-body ul {
+      list-style: none;
+    }
+    
+    .modal-body ol {
+      list-style: decimal;
+    }
+    
+    .modal-body li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .modal-body li input[type="checkbox"] {
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+    
+    .modal-body code {
+      background-color: #333;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+    
+    .modal-body pre {
+      background-color: #333;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .modal-body pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    
+    .files-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+    }
+    
+    .files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .file-item {
+      margin-bottom: 15px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .file-info {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: #333;
+    }
+    
+    .file-icon {
+      font-size: 24px;
+      margin-right: 15px;
+    }
+    
+    .file-details {
+      flex: 1;
+    }
+    
+    .file-name {
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    .file-size {
+      font-size: 14px;
+      color: #a2a2a2;
+    }
+    
+    .file-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .download-btn {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 0;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+    }
+    
+    .download-btn.normal {
+      background-color: transparent;
+      color: white;
+      border: 1px solid white;
+    }
+    
+    .download-btn.normal:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .download-btn.domestic {
+      background-color: #0078d7;
+      color: white;
+    }
+    
+    .download-btn.domestic:hover {
+      background-color: #0063b1;
+    }
+    
+    .modal-body a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .modal-body a:hover {
+      text-decoration: underline;
+    }
+    
+    .modal-body strong {
+      color: white;
+      font-weight: 600;
+    }
+    
+    .modal-body em {
+      font-style: italic;
+    }
+    
+    .close {
+      color: #a2a2a2;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+    
+    .close:hover {
+      color: white;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
       .news-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        max-width: 1000px;
-        margin: 0 auto;
+        max-width: 100%;
       }
       
-      /* 5. 新闻卡片样式 */
       .news-card {
-        background-color: #2a2a2a;
-        border-left: 3px solid var(--primary-color);
-        padding: 30px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: pointer;
-        border-radius: 0;
-      }
-      
-      .news-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-      
-      .news-card h3 {
-        font-size: 20px;
-        color: white;
-        margin-bottom: 15px;
-        font-weight: 300;
-      }
-      
-      .news-card .news-date {
-        font-size: 14px;
-        color: #a2a2a2;
-        margin-bottom: 20px;
-      }
-      
-      .news-card .news-content {
-        color: #a2a2a2;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
-      
-      .news-card .news-link {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s ease;
-        padding: 8px 16px;
-        border: 1px solid transparent;
-        border-radius: 0;
-        display: inline-block;
-      }
-      
-      .news-card .news-link:hover {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-        color: var(--primary-text-color);
-        text-decoration: none;
-      }
-      
-      /* 6. 加载动画 */
-      .loading {
-        text-align: center;
-        padding: 60px 0;
-        color: #a2a2a2;
-      }
-      
-      .loading-spinner {
-        width: 50px;
-        height: 50px;
-        border: 3px solid #333;
-        border-top-color: var(--primary-color);
-        border-radius: 0;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 20px;
-      }
-      
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-      
-      /* 7. 模态框样式 */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 2000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.9);
+        padding: 20px;
       }
       
       .modal-content {
-        background-color: #2a2a2a;
-        margin: 10% auto;
-        padding: 40px;
-        border: 1px solid #333;
-        width: 80%;
-        max-width: 800px;
-        max-height: 80vh;
-        overflow-y: auto;
-        position: relative;
-        border-radius: 0;
+        width: 95%;
+        margin: 20% auto;
+        padding: 20px;
       }
-      
-      .modal-header {
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #333;
-      }
-      
-      .modal-title {
-        font-size: 24px;
-        color: var(--primary-color);
-        margin-bottom: 10px;
-        font-weight: 300;
-      }
-      
-      .modal-date {
-        font-size: 14px;
-        color: #a2a2a2;
-      }
-      
-      .modal-body {
-        color: #a2a2a2;
-        line-height: 1.6;
-      }
-      
-      .modal-body p {
-        margin-bottom: 15px;
-      }
-      
-      .modal-body h2 {
-        color: var(--primary-color);
-        font-size: 20px;
-        margin: 25px 0 15px;
-        font-weight: 300;
-      }
-      
-      .modal-body h3 {
-        color: white;
-        font-size: 18px;
-        margin: 20px 0 10px;
-        font-weight: 300;
-      }
-      
-      .modal-body h4 {
-        color: white;
-        font-size: 16px;
-        margin: 15px 0 8px;
-        font-weight: 300;
-      }
-      
-      .modal-body ul,
-      .modal-body ol {
-        margin: 15px 0;
-        padding-left: 20px;
-      }
-      
-      .modal-body ul {
-        list-style: none;
-      }
-      
-      .modal-body ol {
-        list-style: decimal;
-      }
-      
-      .modal-body li {
-        margin-bottom: 8px;
-        line-height: 1.5;
-      }
-      
-      .modal-body li input[type="checkbox"] {
-        margin-right: 10px;
-        flex-shrink: 0;
-      }
-      
-      .modal-body code {
-        background-color: #333;
-        padding: 2px 6px;
-        border-radius: 0;
-        font-family: 'Courier New', monospace;
-        font-size: 14px;
-      }
-      
-      .modal-body pre {
-        background-color: #333;
-        padding: 15px;
-        border-radius: 0;
-        overflow-x: auto;
-        margin: 15px 0;
-        border-left: 3px solid var(--primary-color);
-      }
-      
-      .modal-body pre code {
-        background-color: transparent;
-        padding: 0;
-      }
-      
-      /* 8. 文件列表样式 */
-      .files-section {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #333;
-      }
-      
-      .files-section h3 {
-        color: var(--primary-color);
-        margin-bottom: 15px;
-        font-weight: 300;
-      }
-      
-      .files-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      .file-item a {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 10px;
-        background-color: #333;
-        border-radius: 0;
-        text-decoration: none;
-        color: white;
-        transition: background-color 0.2s ease;
-      }
-      
-      .file-item a:hover {
-        background-color: #444;
-      }
-      
-      .file-item a div:first-child {
-        font-size: 24px;
-      }
-      
-      .file-item a div:nth-child(2) {
-        flex: 1;
-      }
-      
-      .file-item a div:nth-child(2) div:first-child {
-        font-weight: 500;
-      }
-      
-      .file-item a div:nth-child(2) div:last-child {
-        font-size: 14px;
-        color: #a2a2a2;
-      }
-      
-      .file-item a div:last-child {
-        font-size: 16px;
-      }
-      
-      .modal-body a {
-        color: var(--primary-color);
-        text-decoration: none;
-        transition: color 0.2s ease;
-      }
-      
-      .modal-body a:hover {
-        text-decoration: underline;
-      }
-      
-      .modal-body strong {
-        color: white;
-        font-weight: 600;
-      }
-      
-      .modal-body em {
-        font-style: italic;
-      }
-      
-      .close {
-        color: #a2a2a2;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-        position: absolute;
-        top: 20px;
-        right: 30px;
-      }
-      
-      .close:hover {
-        color: white;
-      }
-      
-      /* 9. 全局滚动条样式 */
-      ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-      
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      
-      ::-webkit-scrollbar-thumb {
-        background: #555;
-        border-radius: 0;
-      }
-      
-      ::-webkit-scrollbar-thumb:hover {
-        background: #777;
-      }
-      
-      /* 针对Firefox的滚动条样式 */
-      * {
-        scrollbar-width: thin;
-        scrollbar-color: #555 transparent;
-      }
-      
-      /* 10. 动画效果 */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      
-      .fade-in-item {
-        animation: fadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        opacity: 0;
-      }
-      
-      /* 11. 响应式设计 */
-      @media (max-width: 768px) {
-        .news-grid {
-          max-width: 100%;
-        }
-        
-        .news-card {
-          padding: 20px;
-        }
-        
-        .modal-content {
-          width: 95%;
-          margin: 20% auto;
-          padding: 20px;
-        }
-      }
+    }
   </style>
 </head>
 <body>
@@ -624,14 +565,17 @@
           const fileItem = document.createElement('div');
           fileItem.className = 'file-item';
           fileItem.innerHTML = `
-            <a href="${asset.browser_download_url}" target="_blank">
-              <div>📁</div>
-              <div>
-                <div>${asset.name}</div>
-                <div>${(asset.size / (1024 * 1024)).toFixed(2)} MB</div>
+            <div class="file-info">
+              <div class="file-icon">📁</div>
+              <div class="file-details">
+                <div class="file-name">${asset.name}</div>
+                <div class="file-size">${(asset.size / (1024 * 1024)).toFixed(2)} MB</div>
               </div>
-              <div>↓</div>
-            </a>
+              <div class="file-buttons">
+                <a href="${asset.browser_download_url}" target="_blank" class="download-btn normal">普通下载</a>
+                <a href="${asset.browser_download_url}" target="_blank" class="download-btn domestic">国内线路</a>
+              </div>
+            </div>
           `;
           filesList.appendChild(fileItem);
         });
