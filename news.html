@@ -187,6 +187,22 @@
       margin-bottom: 8px;
     }
     
+    .modal-body .task-list {
+      list-style: none;
+      padding-left: 20px;
+    }
+    
+    .modal-body .task-list-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .modal-body .task-list-item input[type="checkbox"] {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    
     .modal-body a {
       color: var(--primary-color);
       text-decoration: none;
@@ -431,6 +447,11 @@
       // 处理有序列表
       bodyContent = bodyContent.replace(/(^|\n)(\d+)\.\s+(.+)/g, '$1<li>$3</li>');
       bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/gs, '<ol>$1</ol>');
+      
+      // 处理任务列表
+      bodyContent = bodyContent.replace(/(^|\n)-\s+\[ \]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled> $2</li>');
+      bodyContent = bodyContent.replace(/(^|\n)-\s+\[x\]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled checked> $2</li>');
+      bodyContent = bodyContent.replace(/(<li class="task-list-item">.*?<\/li>)/gs, '<ul class="task-list">$1</ul>');
       
       // 处理链接
       bodyContent = bodyContent.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
