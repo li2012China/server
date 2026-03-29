@@ -6,8 +6,6 @@
   <title>新闻 - LISSERVER</title>
   <link rel="stylesheet" href="style.css" />
   <link id="favicon" rel="icon" href="" type="image/png" />
-  <!-- 引入marked.js库用于Markdown解析 -->
-  <script src="https://unpkg.com/marked@13.0.2/marked.min.js"></script>
   <style>
     /* 新闻页面样式 */
     .news-section {
@@ -172,45 +170,6 @@
       font-weight: 400;
     }
     
-    /* 任务列表样式 */
-    .modal-body ul.task-list {
-      list-style: none;
-      padding-left: 20px;
-    }
-    
-    .modal-body li.task-list-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .modal-body li.task-list-item input[type="checkbox"] {
-      margin: 0;
-      flex-shrink: 0;
-    }
-    
-    /* marked.js生成的元素样式 */
-    .modal-body h1 {
-      color: var(--primary-color);
-      font-size: 24px;
-      margin: 30px 0 15px;
-      font-weight: 400;
-    }
-    
-    .modal-body h2 {
-      color: var(--primary-color);
-      font-size: 20px;
-      margin: 25px 0 15px;
-      font-weight: 400;
-    }
-    
-    .modal-body h3 {
-      color: white;
-      font-size: 18px;
-      margin: 20px 0 10px;
-      font-weight: 400;
-    }
-    
     .modal-body h4 {
       color: white;
       font-size: 16px;
@@ -226,6 +185,22 @@
     
     .modal-body li {
       margin-bottom: 8px;
+    }
+    
+    .modal-body .task-list {
+      list-style: none;
+      padding-left: 20px;
+    }
+    
+    .modal-body .task-list-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .modal-body .task-list-item input[type="checkbox"] {
+      margin: 0;
+      flex-shrink: 0;
     }
     
     .modal-body a {
@@ -244,35 +219,6 @@
     }
     
     .modal-body em {
-      font-style: italic;
-    }
-    
-    .modal-body code {
-      background-color: #333;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: monospace;
-      font-size: 14px;
-    }
-    
-    .modal-body pre {
-      background-color: #333;
-      padding: 15px;
-      border-radius: 4px;
-      overflow-x: auto;
-      margin: 15px 0;
-    }
-    
-    .modal-body pre code {
-      background-color: transparent;
-      padding: 0;
-    }
-    
-    .modal-body blockquote {
-      border-left: 3px solid var(--primary-color);
-      padding-left: 15px;
-      margin: 15px 0;
-      color: #a2a2a2;
       font-style: italic;
     }
     
@@ -475,17 +421,86 @@
       modalTitle.textContent = release.name || '无标题';
       modalDate.textContent = `发布时间: ${formattedDate}`;
       
-      // 使用marked.js处理Markdown内容
+      // 处理Markdown内容
       let bodyContent = release.body || '无内容';
-      // 配置marked.js
-      marked.setOptions({
-        breaks: true,
-        gfm: true,
-        smartLists: true,
-        smartypants: true
-      });
-      // 转换Markdown为HTML
-      bodyContent = marked(bodyContent);
+      
+      // 重写Markdown解析逻辑
+      function parseMarkdown(text) {
+        // 1. 处理换行符
+        text = text.replace(/\r\n/g, '\n');
+        
+        // 2. 处理标题
+        text = text.replace(/^#{3} (.*)$/gm, '<h4>$1</h4>');
+        text = text.replace(/^#{2} (.*)$/gm, '<h3>$1</h3>');
+        text = text.replace(/^# (.*)$/gm, '<h2>$1</h2>');
+        
+        // 3. 处理粗体和斜体
+        // 粗体加斜体 (***text***)
+        text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+        // 粗体 (**text**)
+        text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        // 斜体 (*text*)
+        text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+        
+        // 4. 处理链接
+        text = text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+        
+        // 5. 处理任务列表
+        text = text.replace(/^-\s+\[ \]\s+(.+)$/gm, '<li class="task-list-item"><input type="checkbox" disabled> $1</li>');
+        text = text.replace(/^-\s+\[x\]\s+(.+)$/gm, '<li class="task-list-item"><input type="checkbox" disabled checked> $1</li>');
+        
+        // 6. 处理无序列表
+        text = text.replace(/^(-|\*)\s+(.+)$/gm, '<li>$2</li>');
+        
+        // 7. 处理有序列表
+        text = text.replace(/^(\d+)\.\s+(.+)$/gm, '<li>$2</li>');
+        
+        // 8. 处理列表包装
+        // 包装任务列表
+        text = text.replace(/(<li class="task-list-item">[\s\S]*?<\/li>)/g, '<ul class="task-list">$1</ul>');
+        // 包装无序列表
+        text = text.replace(/(<li>[\s\S]*?<\/li>)(?!<\/ul>)(?!<\/ol>)/g, '<ul>$1</ul>');
+        // 包装有序列表
+        text = text.replace(/(<li>[\s\S]*?<\/li>)(?!<\/ul>)(?!<\/ol>)/g, '<ol>$1</ol>');
+        
+        // 9. 处理段落
+        // 分割文本为行
+        const lines = text.split('\n');
+        const result = [];
+        let currentParagraph = [];
+        
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+          
+          // 如果是空行，并且当前有段落内容，就结束当前段落
+          if (trimmedLine === '' && currentParagraph.length > 0) {
+            result.push('<p>' + currentParagraph.join(' ') + '</p>');
+            currentParagraph = [];
+          }
+          // 如果不是空行，并且不是HTML标签行，就添加到当前段落
+          else if (trimmedLine !== '' && !trimmedLine.startsWith('<') && !trimmedLine.endsWith('>')) {
+            currentParagraph.push(trimmedLine);
+          }
+          // 如果是HTML标签行，直接添加
+          else if (trimmedLine !== '') {
+            if (currentParagraph.length > 0) {
+              result.push('<p>' + currentParagraph.join(' ') + '</p>');
+              currentParagraph = [];
+            }
+            result.push(trimmedLine);
+          }
+        }
+        
+        // 处理最后一个段落
+        if (currentParagraph.length > 0) {
+          result.push('<p>' + currentParagraph.join(' ') + '</p>');
+        }
+        
+        return result.join('\n');
+      }
+      
+      // 解析Markdown内容
+      bodyContent = parseMarkdown(bodyContent);
       
       modalBody.innerHTML = bodyContent;
       
