@@ -129,6 +129,25 @@ body {
   color: white;
 }
 
+/* 主站按钮 - 灰色小按钮 */
+.main-site-btn {
+  display: inline-block;
+  background-color: #333;
+  color: #a2a2a2;
+  padding: 6px 12px;
+  text-decoration: none;
+  font-size: 12px;
+  margin-right: 20px;
+  transition: all 0.2s ease;
+  border: 1px solid #444;
+}
+
+.main-site-btn:hover {
+  background-color: #444;
+  color: white;
+  border-color: #555;
+}
+
 /* 汉堡菜单按钮 */
 .menu-toggle {
   display: none;
@@ -230,6 +249,11 @@ body {
   .menu-overlay.active {
     opacity: 1;
     visibility: visible;
+  }
+  
+  /* 移动端主站按钮样式 */
+  .main-site-btn {
+    display: none;
   }
 }
 
