@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - 页面未找到</title>
+  <link rel="stylesheet" href="style.css" />
+  <link id="favicon" rel="icon" href="" type="image/png" />
+  <style>
+    /* 404页面样式 */
+    .error-section {
+      margin-top: 60px;
+      padding: 100px 30px;
+      min-height: calc(100vh - 60px - 200px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .error-code {
+      font-size: 120px;
+      font-weight: 300;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    
+    .error-title {
+      font-size: 32px;
+      color: white;
+      margin-bottom: 15px;
+    }
+    
+    .error-message {
+      font-size: 18px;
+      color: #a2a2a2;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+    
+    .back-home-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .back-home-btn:hover {
+      background-color: #0063b1;
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img id="server-icon" src="" alt="服务器图标" class="logo-icon-img" style="display: none;" />
+      <div class="logo-icon" id="logo-fallback">⛏</div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">首页</a>
+      <a href="news.html">新闻</a>
+      <a href="hall.html">名人堂</a>
+      <a href="eula.html">用户协议</a>
+      <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <!-- 菜单背景遮罩 -->
+  <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+  <!-- 404错误页面 -->
+  <section class="error-section">
+    <div class="error-code">404</div>
+    <h1 class="error-title">页面未找到</h1>
+    <p class="error-message">抱歉，您访问的页面不存在或已被删除。</p>
+    <a href="index.html" class="back-home-btn">返回首页</a>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>&copy; <span id="current-year"></span> LISSERVER. 作者：马太Matthew</p>
+    <div class="footer-links">
+      <a href="#home">返回顶部</a>
+      <a href="http://103.85.86.51:22621" target="_blank">3D地图</a>
+    </div>
+    <p class="footer-made-with">Made with ❤️ and AI.</p>
+  </footer>
+
+  <script>
+    // 设置当前年份
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // 切换移动端菜单
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuOverlay = document.getElementById('menu-overlay');
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+    }
+
+    // 点击导航链接后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.getElementById('nav-links');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+      });
+    });
+
+    // 获取服务器图标
+    async function loadServerIcon() {
+      try {
+        // 查询 Java 版服务器 - 使用 motdbe.blackbe.work API
+        const response = await fetch('https://motdbe.blackbe.work/api/java?host=play.simpfun.cn:17125');
+
+        if (!response.ok) {
+          throw new Error('API 响应错误: ' + response.status);
+        }
+
+        const data = await response.json();
+        
+        // 更新服务器图标
+        if (data.favicon) {
+          const serverIcon = document.getElementById('server-icon');
+          const logoFallback = document.getElementById('logo-fallback');
+          const favicon = document.getElementById('favicon');
+          serverIcon.src = data.favicon;
+          serverIcon.style.display = 'block';
+          logoFallback.style.display = 'none';
+          // 更新标签页图标
+          favicon.href = data.favicon;
+        }
+      } catch (error) {
+        console.error('获取服务器图标失败:', error);
+        // 失败时使用默认图标
+      }
+    }
+
+    // 页面加载时获取服务器图标
+    document.addEventListener('DOMContentLoaded', function() {
+      loadServerIcon();
+    });
+  </script>
+</body>
+</html>
