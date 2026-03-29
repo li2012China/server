@@ -43,9 +43,35 @@
     .news-card {
       background-color: #2a2a2a;
       border-left: 3px solid var(--primary-color);
-      padding: 30px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
+      overflow: hidden;
+    }
+    
+    .news-card-content {
+      display: flex;
+      padding: 30px;
+    }
+    
+    .news-card-image {
+      flex-shrink: 0;
+      width: 200px;
+      margin-right: 20px;
+    }
+    
+    .news-card-image img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    
+    .news-card-text {
+      flex: 1;
+    }
+    
+    .news-card-text.full-width {
+      width: 100%;
     }
     
     .news-card:hover {
@@ -344,8 +370,19 @@
         max-width: 100%;
       }
       
-      .news-card {
+      .news-card-content {
+        flex-direction: column;
         padding: 20px;
+      }
+      
+      .news-card-image {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+      
+      .news-card-image img {
+        height: 200px;
       }
       
       .modal-content {
@@ -502,12 +539,40 @@
           // 提取摘要
           const summary = plainText.substring(0, 150) + (plainText.length > 150 ? '...' : '');
           
-          newsCard.innerHTML = `
-            <h3>${release.name || '无标题'}</h3>
-            <div class="news-date">发布时间: ${formattedDate}</div>
-            <div class="news-content">${summary}</div>
-            <a href="#" class="news-link">查看详情</a>
-          `;
+          // 提取新闻中的第一张图片
+          let firstImage = null;
+          const imgMatch = content.match(/!\[.*?\]\((.*?)\)/);
+          if (imgMatch && imgMatch[1]) {
+            firstImage = imgMatch[1];
+          }
+          
+          // 生成新闻卡片HTML
+          if (firstImage) {
+            newsCard.innerHTML = `
+              <div class="news-card-content">
+                <div class="news-card-image">
+                  <img src="${firstImage}" alt="新闻图片" />
+                </div>
+                <div class="news-card-text">
+                  <h3>${release.name || '无标题'}</h3>
+                  <div class="news-date">发布时间: ${formattedDate}</div>
+                  <div class="news-content">${summary}</div>
+                  <a href="#" class="news-link">查看详情</a>
+                </div>
+              </div>
+            `;
+          } else {
+            newsCard.innerHTML = `
+              <div class="news-card-content">
+                <div class="news-card-text full-width">
+                  <h3>${release.name || '无标题'}</h3>
+                  <div class="news-date">发布时间: ${formattedDate}</div>
+                  <div class="news-content">${summary}</div>
+                  <a href="#" class="news-link">查看详情</a>
+                </div>
+              </div>
+            `;
+          }
           
           newsGrid.appendChild(newsCard);
         });
