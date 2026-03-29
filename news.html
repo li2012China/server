@@ -425,10 +425,20 @@
       let bodyContent = release.body || '无内容';
       // 增强的Markdown转HTML
       
-      // 处理段落
-      bodyContent = bodyContent.replace(/^([^\n]+)(\n|$)/gm, '<p>$1</p>');
+      // 1. 处理任务列表（[ ]和[x]）
+      bodyContent = bodyContent.replace(/(^|\n)-\s+\[ \]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled> $2</li>');
+      bodyContent = bodyContent.replace(/(^|\n)-\s+\[x\]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled checked> $2</li>');
+      bodyContent = bodyContent.replace(/(<li class="task-list-item">.*?<\/li>)/gs, '<ul class="task-list">$1</ul>');
       
-      // 处理粗体和斜体
+      // 2. 处理无序列表
+      bodyContent = bodyContent.replace(/(^|\n)(-|\*)\s+(.+)/g, '$1<li>$3</li>');
+      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)(?!<\/ul>)/gs, '<ul>$1</ul>');
+      
+      // 3. 处理有序列表
+      bodyContent = bodyContent.replace(/(^|\n)(\d+)\.\s+(.+)/g, '$1<li>$3</li>');
+      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)(?!<\/ol>)(?!<\/ul>)/gs, '<ol>$1</ol>');
+      
+      // 4. 处理粗体和斜体
       // 先处理粗体加斜体 (***text***)
       bodyContent = bodyContent.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
       // 再处理粗体 (**text**)
@@ -436,26 +446,19 @@
       // 最后处理斜体 (*text*)
       bodyContent = bodyContent.replace(/\*(.*?)\*/g, '<em>$1</em>');
       
-      // 处理无序列表
-      bodyContent = bodyContent.replace(/(^|\n)(-|\*)\s+(.+)/g, '$1<li>$3</li>');
-      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/gs, '<ul>$1</ul>');
-      
-      // 处理有序列表
-      bodyContent = bodyContent.replace(/(^|\n)(\d+)\.\s+(.+)/g, '$1<li>$3</li>');
-      bodyContent = bodyContent.replace(/(<li>.*?<\/li>)/gs, '<ol>$1</ol>');
-      
-      // 处理任务列表
-      bodyContent = bodyContent.replace(/(^|\n)-\s+\[ \]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled> $2</li>');
-      bodyContent = bodyContent.replace(/(^|\n)-\s+\[x\]\s+(.+)/g, '$1<li class="task-list-item"><input type="checkbox" disabled checked> $2</li>');
-      bodyContent = bodyContent.replace(/(<li class="task-list-item">.*?<\/li>)/gs, '<ul class="task-list">$1</ul>');
-      
-      // 处理链接
+      // 5. 处理链接
       bodyContent = bodyContent.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
       
-      // 处理标题
+      // 6. 处理标题
       bodyContent = bodyContent.replace(/^# (.*)$/gm, '<h2>$1</h2>');
       bodyContent = bodyContent.replace(/^## (.*)$/gm, '<h3>$1</h3>');
       bodyContent = bodyContent.replace(/^### (.*)$/gm, '<h4>$1</h4>');
+      
+      // 7. 处理段落（最后处理，避免影响其他格式）
+      bodyContent = bodyContent.replace(/^([^<\n]+)(\n|$)/gm, '<p>$1</p>');
+      // 清理多余的空段落
+      bodyContent = bodyContent.replace(/<p>\s*<\/p>/g, '');
+      bodyContent = bodyContent.replace(/<p>\s*<\/p>/g, '');
       
       modalBody.innerHTML = bodyContent;
       
