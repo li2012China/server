@@ -406,9 +406,20 @@
           const date = new Date(release.published_at);
           const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
           
-          // 提取内容摘要
+          // 提取内容摘要并解析Markdown
           const content = release.body || '无内容';
-          const summary = content.substring(0, 150) + (content.length > 150 ? '...' : '');
+          // 使用markdown-it库解析Markdown
+          const md = window.markdownit({
+            html: true,
+            breaks: true,
+            linkify: true
+          });
+          // 解析Markdown为HTML
+          let parsedContent = md.render(content);
+          // 移除HTML标签，只保留纯文本
+          const plainText = parsedContent.replace(/<[^>]*>/g, '');
+          // 提取摘要
+          const summary = plainText.substring(0, 150) + (plainText.length > 150 ? '...' : '');
           
           newsCard.innerHTML = `
             <h3>${release.name || '无标题'}</h3>
