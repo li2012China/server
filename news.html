@@ -63,7 +63,13 @@
       width: 100%;
       height: 150px;
       object-fit: cover;
-      border-radius: 5px;
+    }
+
+    /* 新闻详情页图片样式 */
+    .modal-content .news-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 10px 0;
     }
     
     .news-card-text {
@@ -572,9 +578,15 @@
               </div>
             `;
           } else {
+            // 随机使用banner中的一张图片
+            const bannerImages = ['images/banner1.png', 'images/banner2.png', 'images/banner3.png'];
+            const randomBanner = bannerImages[Math.floor(Math.random() * bannerImages.length)];
             newsCard.innerHTML = `
               <div class="news-card-content">
-                <div class="news-card-text full-width">
+                <div class="news-card-image">
+                  <img src="${randomBanner}" alt="新闻图片" />
+                </div>
+                <div class="news-card-text">
                   <h3>${release.name || '无标题'}</h3>
                   <div class="news-date">发布时间: ${formattedDate}</div>
                   <div class="news-content">${summary}</div>
