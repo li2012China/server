@@ -203,6 +203,7 @@ body {
     width: 100%;
     text-align: center;
     border-bottom: 1px solid #333;
+    display: block;
   }
 
   .nav-links a:last-child {
