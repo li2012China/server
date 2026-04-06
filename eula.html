@@ -241,6 +241,29 @@
       });
     });
 
+    // 检查是否显示季节性彩蛋
+    function checkSeasonalEasterEgg() {
+      const now = new Date();
+      const month = now.getMonth() + 1; // 月份从0开始，所以加1
+      
+      // 检查是否在3月到5月之间
+      if (month >= 3 && month <= 5) {
+        // 25%的几率显示彩蛋
+        if (Math.random() < 0.25) {
+          const serverIcon = document.getElementById('server-icon');
+          const logoFallback = document.getElementById('logo-fallback');
+          const favicon = document.getElementById('favicon');
+          serverIcon.src = 'images/eggs/chick.png';
+          serverIcon.style.display = 'block';
+          logoFallback.style.display = 'none';
+          // 更新标签页图标
+          favicon.href = 'images/eggs/chick.png';
+          return true; // 已显示彩蛋，不需要再加载服务器图标
+        }
+      }
+      return false; // 未显示彩蛋，需要加载服务器图标
+    }
+
     // 尝试获取服务器图标
     async function loadServerIcon() {
       try {
@@ -263,7 +286,12 @@
     }
 
     // 页面加载时加载服务器图标
-    document.addEventListener('DOMContentLoaded', loadServerIcon);
+    document.addEventListener('DOMContentLoaded', function() {
+      const hasEasterEgg = checkSeasonalEasterEgg();
+      if (!hasEasterEgg) {
+        loadServerIcon();
+      }
+    });
   </script>
 </body>
 </html>
