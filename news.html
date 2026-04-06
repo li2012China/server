@@ -692,15 +692,17 @@
       if (month >= 3 && month <= 5) {
         // 25%的几率显示彩蛋
         if (Math.random() < 0.25) {
-          const serverIcon = document.getElementById('server-icon');
-          const logoFallback = document.getElementById('logo-fallback');
-          const favicon = document.getElementById('favicon');
-          serverIcon.src = 'images/eggs/chick.png';
-          serverIcon.style.display = 'block';
-          logoFallback.style.display = 'none';
-          // 更新标签页图标
-          favicon.href = 'images/eggs/chick.png';
-          return true; // 已显示彩蛋，不需要再加载服务器图标
+          // 创建小鸡图标元素
+          const chickIcon = document.createElement('img');
+          chickIcon.src = 'images/eggs/chick.png';
+          chickIcon.alt = '小鸡彩蛋';
+          chickIcon.className = 'logo-icon-img easter-egg';
+          
+          // 获取logo容器
+          const logoContainer = document.querySelector('.logo');
+          logoContainer.appendChild(chickIcon);
+          
+          return false; // 继续加载服务器图标
         }
       }
       return false; // 未显示彩蛋，需要加载服务器图标

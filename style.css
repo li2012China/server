@@ -94,6 +94,21 @@ body {
   object-fit: contain;
 }
 
+/* 季节性彩蛋小鸡图标样式 */
+.logo-icon-img.easter-egg {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+}
+
+/* 调整logo容器为相对定位，以便小鸡图标可以绝对定位 */
+.logo {
+  position: relative;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
