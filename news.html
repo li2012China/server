@@ -533,7 +533,13 @@
         releases.forEach(release => {
           const newsCard = document.createElement('div');
           newsCard.className = 'news-card';
-          newsCard.onclick = () => openModal(release);
+          newsCard.onclick = () => {
+            // 更新URL，添加新闻标签作为参数
+            const url = new URL(window.location.href);
+            url.searchParams.set('news', release.tag_name);
+            history.pushState({}, '', url.toString());
+            openModal(release);
+          };
           
           // 格式化日期
           const date = new Date(release.published_at);
@@ -596,9 +602,12 @@
           newsGrid.appendChild(newsCard);
         });
         
+        return releases; // 返回获取到的releases数据
+        
       } catch (error) {
         console.error('获取新闻失败:', error);
         loading.innerHTML = '<p>加载失败，请刷新页面重试</p>';
+        return []; // 发生错误时返回空数组
       }
     }
 
@@ -681,6 +690,10 @@
     // 关闭模态框
     function closeModal() {
       document.getElementById('news-modal').style.display = 'none';
+      // 清除URL中的新闻参数
+      const url = new URL(window.location.href);
+      url.searchParams.delete('news');
+      history.pushState({}, '', url.toString());
     }
 
     // 检查是否显示季节性彩蛋
@@ -737,13 +750,31 @@
       }
     }
 
+    // 检查URL参数并显示对应新闻
+    function checkUrlParams(releases) {
+      const url = new URL(window.location.href);
+      const newsTag = url.searchParams.get('news');
+      if (newsTag) {
+        // 查找对应的发行版
+        const release = releases.find(r => r.tag_name === newsTag);
+        if (release) {
+          openModal(release);
+        }
+      }
+    }
+
     // 页面加载时获取新闻和服务器图标
     document.addEventListener('DOMContentLoaded', function() {
-      fetchNews();
       const hasEasterEgg = checkSeasonalEasterEgg();
       if (!hasEasterEgg) {
         loadServerIcon();
       }
+      
+      // 获取新闻数据
+      fetchNews().then(releases => {
+        // 检查URL参数
+        checkUrlParams(releases);
+      });
     });
   </script>
 </body>
