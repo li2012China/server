@@ -35,7 +35,8 @@
   <section class="hero-section" id="home">
     <!-- 图片轮播 -->
     <div class="carousel-container">
-      <div class="carousel-slide active">
+      <!-- 注释掉banner1的内容 -->
+      <!-- <div class="carousel-slide active">
         <img src="images/banner1.png" alt="Minecraft 服务器场景1" />
         <div class="carousel-content">
           <div class="hero-title-container">
@@ -48,8 +49,8 @@
           <p class="caption-text">现已支持Bedrock Edition加入游戏！</p>
           <p class="caption-date">2025.10.3</p>
         </div>
-      </div>
-      <div class="carousel-slide">
+      </div> -->
+      <div class="carousel-slide active">
         <img src="images/banner2.png" alt="Minecraft 服务器场景2" />
         <div class="carousel-content">
           <div class="hero-title-container">
@@ -93,10 +94,10 @@
       </div>
       <!-- 轮播指示器 -->
       <div class="carousel-indicators">
-        <span class="indicator active" onclick="goToSlide(0)"></span>
-        <span class="indicator" onclick="goToSlide(1)"></span>
-        <span class="indicator" onclick="goToSlide(2)"></span>
-        <span class="indicator" onclick="goToSlide(3)"></span>
+        <span class="indicator" onclick="goToSlide(0)"></span> <!-- 对应banner1（已注释） -->
+        <span class="indicator active" onclick="goToSlide(1)"></span> <!-- 对应banner2（现在是默认） -->
+        <span class="indicator" onclick="goToSlide(2)"></span> <!-- 对应banner3 -->
+        <span class="indicator" onclick="goToSlide(3)"></span> <!-- 对应banner4 -->
       </div>
       <!-- 左右箭头 -->
       <button class="carousel-arrow carousel-prev" onclick="prevSlide()">&#10094;</button>
