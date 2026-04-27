@@ -97,8 +97,8 @@ body {
 /* 季节性彩蛋小鸡图标样式 */
 .logo-icon-img.easter-egg {
   position: absolute;
-  top: 60%;
-  left: 40%;
+  top: 61%;
+  left: 39%;
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
