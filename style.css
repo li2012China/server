@@ -916,6 +916,20 @@ body {
   text-transform: uppercase;
 }
 
+.hall-watermark {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 11px;
+  color: rgba(160, 160, 160, 0.7);
+  pointer-events: none;
+  user-select: none;
+}
+
+.hall-poster {
+  position: relative;
+}
+
 .hall-info {
   padding: 20px;
   text-align: center;
