@@ -149,6 +149,13 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(0, 0, 0, 0.9);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal.show {
+      display: block;
+      opacity: 1;
     }
     
     .modal-content {
@@ -161,7 +168,15 @@
       height: 100vh;
       max-height: 100vh;
       overflow-y: auto;
-      position: relative;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.show .modal-content {
+      transform: translateX(0);
     }
     
     .modal-header {
@@ -678,7 +693,7 @@
       }
       
       // 显示模态框
-      modal.style.display = 'block';
+      modal.classList.add('show');
       
       // 点击模态框外部关闭
       window.onclick = function(event) {
@@ -690,11 +705,15 @@
 
     // 关闭模态框
     function closeModal() {
-      document.getElementById('news-modal').style.display = 'none';
-      // 清除URL中的新闻参数
-      const url = new URL(window.location.href);
-      url.searchParams.delete('news');
-      history.pushState({}, '', url.toString());
+      const modal = document.getElementById('news-modal');
+      modal.classList.remove('show');
+      // 等待动画完成后再清除内容
+      setTimeout(() => {
+        // 清除URL中的新闻参数
+        const url = new URL(window.location.href);
+        url.searchParams.delete('news');
+        history.pushState({}, '', url.toString());
+      }, 300);
     }
 
     // 检查是否显示季节性彩蛋
