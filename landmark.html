@@ -78,6 +78,13 @@
       margin: 0 0 10px 0;
     }
 
+    .landmark-author {
+      font-size: 12px;
+      color: #888;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
     .landmark-desc {
       font-size: 14px;
       color: #a2a2a2;
@@ -237,12 +244,12 @@
 
   <script>
     // 打开地标详情模态框
-    function openLandmarkModal(title, image, description) {
+    function openLandmarkModal(title, image, description, author) {
       const modal = document.getElementById('landmark-modal');
       const modalTitle = document.getElementById('landmark-modal-title');
       const modalBody = document.getElementById('landmark-modal-body');
       
-      modalTitle.textContent = title;
+      modalTitle.innerHTML = `${title}<span class="landmark-author">by ${author}</span>`;
       modalBody.innerHTML = `<img src="${image}" alt="${title}"><p>${description}</p>`;
       
       modal.classList.add('show');
@@ -353,13 +360,13 @@
         landmarks.forEach(landmark => {
           const card = document.createElement('div');
           card.className = 'landmark-card';
-          card.onclick = () => openLandmarkModal(landmark.name, landmark.image, landmark.description);
+          card.onclick = () => openLandmarkModal(landmark.name, landmark.image, landmark.description, landmark.author);
           card.innerHTML = `
             <div class="landmark-poster">
               <img src="${landmark.image}" alt="${landmark.name}" />
             </div>
             <div class="landmark-info">
-              <h3>${landmark.name}</h3>
+              <h3>${landmark.name}<span class="landmark-author">by ${landmark.author}</span></h3>
               <p class="landmark-desc">${landmark.description}</p>
             </div>
           `;
