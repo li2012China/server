@@ -85,6 +85,82 @@
       line-height: 1.5;
     }
 
+    .modal {
+      display: block;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: #1a1a1a;
+      margin: 0;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: translateX(0);
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      color: white;
+    }
+
+    .close:hover {
+      color: #aaa;
+    }
+
+    .modal-header {
+      padding: 20px 0;
+      border-bottom: 1px solid #333;
+      margin-top: 40px;
+    }
+
+    .modal-title {
+      font-size: 28px;
+      color: white;
+      font-weight: 400;
+      margin: 0 0 10px 0;
+    }
+
+    .modal-body {
+      color: #a2a2a2;
+      line-height: 1.6;
+      padding-top: 20px;
+    }
+
+    .modal-body img {
+      max-width: 100%;
+      height: auto;
+      margin: 15px 0;
+      display: block;
+    }
+
     @media (max-width: 768px) {
       .landmark-grid {
         grid-template-columns: 1fr;
@@ -131,10 +207,9 @@
     </div>
 
     <div class="landmark-grid">
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('彩虹信标', 'images/landmarks/caihongxinbiao.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/caihongxinbiao.png" alt="彩虹信标" />
-          
         </div>
         <div class="landmark-info">
           <h3>彩虹信标</h3>
@@ -142,10 +217,9 @@
         </div>
       </div>
 
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('穿山隧道', 'images/landmarks/chuanshansuidao.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/chuanshansuidao.png" alt="穿山隧道" />
-          
         </div>
         <div class="landmark-info">
           <h3>穿山隧道</h3>
@@ -153,10 +227,9 @@
         </div>
       </div>
 
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('教堂', 'images/landmarks/jiaotang.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/jiaotang.png" alt="教堂" />
-          
         </div>
         <div class="landmark-info">
           <h3>教堂</h3>
@@ -164,10 +237,9 @@
         </div>
       </div>
 
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('The Studio', 'images/landmarks/thestudio.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/thestudio.png" alt="The Studio" />
-          
         </div>
         <div class="landmark-info">
           <h3>The Studio</h3>
@@ -175,10 +247,9 @@
         </div>
       </div>
 
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('州际公路', 'images/landmarks/zhoujigonglu.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/zhoujigonglu.png" alt="州际公路" />
-          
         </div>
         <div class="landmark-info">
           <h3>州际公路</h3>
@@ -186,10 +257,9 @@
         </div>
       </div>
 
-      <div class="landmark-card">
+      <div class="landmark-card" onclick="openLandmarkModal('自然空岛', 'images/landmarks/zirankongdao.png', '默认文本')">
         <div class="landmark-poster">
           <img src="images/landmarks/zirankongdao.png" alt="自然空岛" />
-          
         </div>
         <div class="landmark-info">
           <h3>自然空岛</h3>
@@ -198,6 +268,17 @@
       </div>
     </div>
   </section>
+
+  <!-- 地标详情模态框 -->
+  <div class="modal" id="landmark-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLandmarkModal()"><img src="images/ui/return.png" alt="返回" style="width: 24px; height: 24px; filter: invert(1);"></span>
+      <div class="modal-header">
+        <h2 class="modal-title" id="landmark-modal-title"></h2>
+      </div>
+      <div class="modal-body" id="landmark-modal-body"></div>
+    </div>
+  </div>
 
   <!-- 页脚 -->
   <footer class="footer">
@@ -214,6 +295,36 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // 打开地标详情模态框
+    function openLandmarkModal(title, image, description) {
+      const modal = document.getElementById('landmark-modal');
+      const modalTitle = document.getElementById('landmark-modal-title');
+      const modalBody = document.getElementById('landmark-modal-body');
+      
+      modalTitle.textContent = title;
+      modalBody.innerHTML = `<img src="${image}" alt="${title}"><p>${description}</p>`;
+      
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭地标详情模态框
+    function closeLandmarkModal() {
+      const modal = document.getElementById('landmark-modal');
+      modal.classList.remove('show');
+      
+      setTimeout(() => {
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // 点击模态框外部关闭
+    document.getElementById('landmark-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLandmarkModal();
+      }
+    });
+
     // 显示提示消息
     function showToast(message) {
       const toast = document.getElementById('toast');
