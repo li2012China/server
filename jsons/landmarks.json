@@ -1,0 +1,32 @@
+[
+  {
+    "name": "彩虹信标",
+    "image": "images/landmarks/caihongxinbiao.png",
+    "description": "默认文本"
+  },
+  {
+    "name": "穿山隧道",
+    "image": "images/landmarks/chuanshansuidao.png",
+    "description": "默认文本"
+  },
+  {
+    "name": "教堂",
+    "image": "images/landmarks/jiaotang.png",
+    "description": "默认文本"
+  },
+  {
+    "name": "The Studio",
+    "image": "images/landmarks/thestudio.png",
+    "description": "默认文本"
+  },
+  {
+    "name": "州际公路",
+    "image": "images/landmarks/zhoujigonglu.png",
+    "description": "默认文本"
+  },
+  {
+    "name": "自然空岛",
+    "image": "images/landmarks/zirankongdao.png",
+    "description": "默认文本"
+  }
+]

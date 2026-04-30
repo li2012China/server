@@ -206,66 +206,7 @@
       <p class="landmark-subtitle">探索服务器中的标志性建筑</p>
     </div>
 
-    <div class="landmark-grid">
-      <div class="landmark-card" onclick="openLandmarkModal('彩虹信标', 'images/landmarks/caihongxinbiao.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/caihongxinbiao.png" alt="彩虹信标" />
-        </div>
-        <div class="landmark-info">
-          <h3>彩虹信标</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
-
-      <div class="landmark-card" onclick="openLandmarkModal('穿山隧道', 'images/landmarks/chuanshansuidao.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/chuanshansuidao.png" alt="穿山隧道" />
-        </div>
-        <div class="landmark-info">
-          <h3>穿山隧道</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
-
-      <div class="landmark-card" onclick="openLandmarkModal('教堂', 'images/landmarks/jiaotang.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/jiaotang.png" alt="教堂" />
-        </div>
-        <div class="landmark-info">
-          <h3>教堂</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
-
-      <div class="landmark-card" onclick="openLandmarkModal('The Studio', 'images/landmarks/thestudio.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/thestudio.png" alt="The Studio" />
-        </div>
-        <div class="landmark-info">
-          <h3>The Studio</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
-
-      <div class="landmark-card" onclick="openLandmarkModal('州际公路', 'images/landmarks/zhoujigonglu.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/zhoujigonglu.png" alt="州际公路" />
-        </div>
-        <div class="landmark-info">
-          <h3>州际公路</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
-
-      <div class="landmark-card" onclick="openLandmarkModal('自然空岛', 'images/landmarks/zirankongdao.png', '默认文本')">
-        <div class="landmark-poster">
-          <img src="images/landmarks/zirankongdao.png" alt="自然空岛" />
-        </div>
-        <div class="landmark-info">
-          <h3>自然空岛</h3>
-          <p class="landmark-desc">默认文本</p>
-        </div>
-      </div>
+    <div class="landmark-grid" id="landmark-grid">
     </div>
   </section>
 
@@ -402,7 +343,32 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
+      // 加载地标数据
+      try {
+        const response = await fetch('jsons/landmarks.json');
+        const landmarks = await response.json();
+        
+        const grid = document.getElementById('landmark-grid');
+        landmarks.forEach(landmark => {
+          const card = document.createElement('div');
+          card.className = 'landmark-card';
+          card.onclick = () => openLandmarkModal(landmark.name, landmark.image, landmark.description);
+          card.innerHTML = `
+            <div class="landmark-poster">
+              <img src="${landmark.image}" alt="${landmark.name}" />
+            </div>
+            <div class="landmark-info">
+              <h3>${landmark.name}</h3>
+              <p class="landmark-desc">${landmark.description}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('加载地标数据失败:', error);
+      }
+
       const hasEasterEgg = checkSeasonalEasterEgg();
       if (!hasEasterEgg) {
         loadServerIcon();
