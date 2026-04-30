@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>综合菜单 - LISSERVER</title>
+  <link rel="stylesheet" href="style.css" />
+  <link id="favicon" rel="icon" href="" type="image/png" />
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img id="server-icon" src="" alt="服务器图标" class="logo-icon-img" style="display: none;" />
+      <div class="logo-icon" id="logo-fallback">⛏</div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">首页</a>
+      <a href="news.html">新闻</a>
+      <a href="hall.html">名人堂</a>
+      <a href="eula.html">用户协议</a>
+      <a href="https://li2012china.github.io/" target="_blank">主站</a>
+      <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <!-- 菜单背景遮罩 -->
+  <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+  <!-- 综合菜单内容 -->
+  <section class="menu-section">
+    <div class="menu-header">
+      <h1 class="menu-title">综合菜单</h1>
+      <p class="menu-subtitle">快速访问各个页面</p>
+    </div>
+
+    <div class="menu-grid">
+      <a href="news.html" class="menu-card">
+        <div class="menu-card-icon"></div>
+        <h3 class="menu-card-title">新闻</h3>
+        <p class="menu-card-desc">最新服务器动态和更新信息</p>
+      </a>
+
+      <a href="hall.html" class="menu-card">
+        <div class="menu-card-icon">🏆</div>
+        <h3 class="menu-card-title">名人堂</h3>
+        <p class="menu-card-desc">LISSERVER 服务器的杰出玩家们</p>
+      </a>
+
+      <a href="eula.html" class="menu-card">
+        <div class="menu-card-icon"></div>
+        <h3 class="menu-card-title">用户协议</h3>
+        <p class="menu-card-desc">服务器使用规则和条款</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>&copy; <span id="current-year"></span> LISSERVER. 作者：马太Matthew</p>
+    <div class="footer-links">
+      <a href="#home">返回顶部</a>
+      <a href="http://103.85.86.51:22621" target="_blank">3D地图</a>
+      <a href="http://play.simpfun.cn:42651/" target="_blank">后台</a>
+    </div>
+    <p class="footer-made-with">Made with ❤️ and AI.</p>
+  </footer>
+
+  <!-- 提示消息 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 显示提示消息
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 设置当前年份
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // 切换移动端菜单
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuOverlay = document.getElementById('menu-overlay');
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+    }
+
+    // 点击导航链接后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.getElementById('nav-links');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+      });
+    });
+
+    // 检查是否显示季节性彩蛋
+    function checkSeasonalEasterEgg() {
+      const now = new Date();
+      const month = now.getMonth() + 1; // 月份从0开始，所以加1
+      
+      // 检查是否在3月到5月之间
+      if (month >= 3 && month <= 5) {
+        // 25%的几率显示彩蛋
+        if (Math.random() < 0.25) {
+          // 创建小鸡图标元素
+          const chickIcon = document.createElement('img');
+          chickIcon.src = 'images/eggs/chick.png';
+          chickIcon.alt = '小鸡彩蛋';
+          chickIcon.className = 'logo-icon-img easter-egg';
+          
+          // 获取logo容器
+          const logoContainer = document.querySelector('.logo');
+          logoContainer.appendChild(chickIcon);
+          
+          return false; // 继续加载服务器图标
+        }
+      }
+      return false; // 未显示彩蛋，需要加载服务器图标
+    }
+
+    // 加载服务器图标
+    async function loadServerIcon() {
+      try {
+        const response = await fetch('https://motdbe.blackbe.work/api/java?host=play.simpfun.cn:17125');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.favicon) {
+            const serverIcon = document.getElementById('server-icon');
+            const logoFallback = document.getElementById('logo-fallback');
+            const favicon = document.getElementById('favicon');
+            serverIcon.src = data.favicon;
+            serverIcon.style.display = 'block';
+            logoFallback.style.display = 'none';
+            favicon.href = data.favicon;
+          }
+        }
+      } catch (error) {
+        console.error('加载服务器图标失败:', error);
+      }
+    }
+
+    // 页面加载时获取服务器图标
+    document.addEventListener('DOMContentLoaded', function() {
+      const hasEasterEgg = checkSeasonalEasterEgg();
+      if (!hasEasterEgg) {
+        loadServerIcon();
+      }
+    });
+  </script>
+</body>
+</html>
