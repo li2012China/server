@@ -17,9 +17,7 @@
     <div class="nav-links" id="nav-links">
       <a href="index.html">首页</a>
       <a href="menu.html">综合菜单</a>
-      <a href="news.html">新闻</a>
       <a href="hall.html">名人堂</a>
-      <a href="eula.html">用户协议</a>
       <a href="https://li2012china.github.io/" target="_blank">主站</a>
       <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
     </div>
@@ -114,7 +112,7 @@
     function checkSeasonalEasterEgg() {
       const now = new Date();
       const month = now.getMonth() + 1; // 月份从0开始，所以加1
-      
+
       // 检查是否在3月到5月之间
       if (month >= 3 && month <= 5) {
         // 25%的几率显示彩蛋
@@ -124,11 +122,11 @@
           chickIcon.src = 'images/eggs/chick.png';
           chickIcon.alt = '小鸡彩蛋';
           chickIcon.className = 'logo-icon-img easter-egg';
-          
+
           // 获取logo容器
           const logoContainer = document.querySelector('.logo');
           logoContainer.appendChild(chickIcon);
-          
+
           return false; // 继续加载服务器图标
         }
       }
