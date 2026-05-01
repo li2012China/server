@@ -3,36 +3,36 @@
     "name": "彩虹信标",
     "author": "wangkaikai111",
     "image": "images/landmarks/caihongxinbiao.png",
-    "description": "默认文本"
+    "description": "如你所见，这是一个彩虹形状的80个信标，可以用来寻找方向。"
   },
   {
     "name": "穿山隧道",
     "author": "wyf666",
     "image": "images/landmarks/chuanshansuidao.png",
-    "description": "默认文本"
+    "description": "纯生存模式下挖掘出的最长的隧道，极大地缩短了通行时间。"
   },
   {
     "name": "教堂",
     "author": "Browlmc",
     "image": "images/landmarks/jiaotang.png",
-    "description": "默认文本"
+    "description": "哥特式建筑，服务器第一个用于美观的大型西式建筑。"
   },
   {
     "name": "The Studio",
     "author": "多人",
     "image": "images/landmarks/thestudio.png",
-    "description": "默认文本"
+    "description": "这是一个用于视频创作的工作室，玩家可以在其中创作自己的内容。"
   },
   {
     "name": "州际公路",
     "author": "多人",
     "image": "images/landmarks/zhoujigonglu.png",
-    "description": "默认文本"
+    "description": "这是一个用于交通的公路，玩家可以在其中进行交通。"
   },
   {
     "name": "自然空岛",
     "author": "无",
     "image": "images/landmarks/zirankongdao.png",
-    "description": "默认文本"
+    "description": "自然生成的空岛，用指令被搬到了这里。"
   }
 ]
