@@ -164,6 +164,7 @@
       <div class="map-loading" id="map-loading">
         <div class="loading-spinner"></div>
         <p>地图加载中...</p>
+        <button onclick="document.getElementById('map-loading').classList.remove('visible')" style="margin-top: 10px; padding: 5px 15px; cursor: pointer;">关闭提示</button>
       </div>
     </div>
     <p style="text-align: center; margin-top: 15px; font-size: 14px;"><a href="http://103.85.86.51:22621" target="_blank" style="color: #a2a2a2; text-decoration: none;">在新标签页中打开</a></p>
@@ -264,6 +265,11 @@
     document.getElementById('map-iframe').addEventListener('load', function() {
       document.getElementById('map-loading').classList.remove('visible');
     });
+
+    // 超时处理：10秒后强制隐藏加载提示
+    setTimeout(function() {
+      document.getElementById('map-loading').classList.remove('visible');
+    }, 10000);
 
     // 查询服务器状态
     async function refreshServerStatus() {
