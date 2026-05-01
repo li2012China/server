@@ -156,7 +156,7 @@
   <section class="map-section" id="map">
     <h2 class="section-title">3D 地图浏览</h2>
     <div class="map-container">
-      <iframe class="map-frame" id="map-iframe" src="about:blank" onload="hideLoading()"></iframe>
+      <iframe class="map-frame" id="map-iframe" src="about:blank"></iframe>
       <div class="map-overlay" id="map-overlay">
         <p>点击按钮打开 3D 地图</p>
         <button class="map-btn" onclick="loadMap()">打开地图</button>
@@ -253,17 +253,17 @@
       }, 3000);
     }
 
-    // 加载地图
+    // 加载3D地图
     function loadMap() {
       document.getElementById('map-overlay').style.display = 'none';
       document.getElementById('map-loading').classList.add('visible');
       document.getElementById('map-iframe').src = 'http://103.85.86.51:22621';
     }
 
-    // 隐藏加载中提示
-    function hideLoading() {
+    // 监听iframe加载完成
+    document.getElementById('map-iframe').addEventListener('load', function() {
       document.getElementById('map-loading').classList.remove('visible');
-    }
+    });
 
     // 查询服务器状态
     async function refreshServerStatus() {
