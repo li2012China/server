@@ -155,19 +155,9 @@
   <!-- 3D地图 -->
   <section class="map-section" id="map">
     <h2 class="section-title">3D 地图浏览</h2>
-    <div class="map-container">
-      <iframe class="map-frame" id="map-iframe" src="about:blank"></iframe>
-      <div class="map-overlay" id="map-overlay">
-        <p>点击按钮打开 3D 地图</p>
-        <button class="map-btn" onclick="loadMap()">打开地图</button>
-      </div>
-      <div class="map-loading" id="map-loading">
-        <div class="loading-spinner"></div>
-        <p>地图加载中...</p>
-        <button onclick="document.getElementById('map-loading').classList.remove('visible')" style="margin-top: 10px; padding: 5px 15px; cursor: pointer;">关闭提示</button>
-      </div>
+    <div class="map-container" style="display: flex; align-items: center; justify-content: center; height: 200px; background: #2a2a2a; border-radius: 8px;">
+      <a href="http://103.85.86.51:22621" target="_blank" class="map-btn">打开 3D 地图</a>
     </div>
-    <p style="text-align: center; margin-top: 15px; font-size: 14px;"><a href="http://103.85.86.51:22621" target="_blank" style="color: #a2a2a2; text-decoration: none;">在新标签页中打开</a></p>
   </section>
 
   <!-- 服务器特色 -->
@@ -253,23 +243,6 @@
         toast.classList.remove('show');
       }, 3000);
     }
-
-    // 加载3D地图
-    function loadMap() {
-      document.getElementById('map-overlay').style.display = 'none';
-      document.getElementById('map-loading').classList.add('visible');
-      document.getElementById('map-iframe').src = 'http://103.85.86.51:22621';
-    }
-
-    // 监听iframe加载完成
-    document.getElementById('map-iframe').addEventListener('load', function() {
-      document.getElementById('map-loading').classList.remove('visible');
-    });
-
-    // 超时处理：10秒后强制隐藏加载提示
-    setTimeout(function() {
-      document.getElementById('map-loading').classList.remove('visible');
-    }, 10000);
 
     // 查询服务器状态
     async function refreshServerStatus() {
