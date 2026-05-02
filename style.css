@@ -39,12 +39,19 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Fusion Pixel';
+  src: url('fonts/fusion-pixel-10px-proportional-zh_hans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* 3. 全局重置和基础样式 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Segoe UI Emoji', sans-serif;
+  font-family: 'Fusion Pixel', 'Segoe UI', Tahoma, Geneva, Verdana, 'Segoe UI Emoji', sans-serif;
 }
 
 /* Emoji 样式 - 使用 Segoe UI Emoji 字体 */
@@ -54,7 +61,7 @@
 
 /* 确保所有 emoji 字符使用正确的字体 */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Segoe UI Emoji', sans-serif;
+  font-family: 'Fusion Pixel', 'Segoe UI', Tahoma, Geneva, Verdana, 'Segoe UI Emoji', sans-serif;
 }
 
 /* 3. 基础布局样式 */
