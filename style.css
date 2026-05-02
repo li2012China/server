@@ -861,6 +861,11 @@ body {
   color: var(--primary-color);
 }
 
+.footer-links .social-link {
+  font-family: 'Fusion Pixel', sans-serif;
+  font-size: 18px;
+}
+
 .footer-made-with {
   margin-top: 20px;
   font-weight: 600;
