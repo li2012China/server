@@ -34,5 +34,11 @@
     "author": "无",
     "image": "images/landmarks/zirankongdao.png",
     "description": "自然生成的空岛，用指令被搬到了这里。"
+  },
+  {
+    "name": "服务器大仓库",
+    "author": "多人",
+    "image": "images/landmarks/fuwuqidacangku.png",
+    "description": "服务器的公共仓库，存放着各种物资和资源，为玩家提供便利。"
   }
 ]
