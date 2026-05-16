@@ -323,9 +323,9 @@
 
     // 页面加载时加载服务器图标
     document.addEventListener('DOMContentLoaded', function() {
-      // 纪念日颜色切换
+      // 纪念日样式
       if (isMemorialDay()) {
-        document.documentElement.style.setProperty('--primary-color', '#666666');
+        document.body.classList.add('memorial-day');
       }
       const hasEasterEgg = checkSeasonalEasterEgg();
       if (!hasEasterEgg) {

@@ -10,6 +10,23 @@
   --hue-rotate-deg: 0deg;
 }
 
+/* 纪念日样式 */
+body.memorial-day {
+  --primary-color: #666666;
+}
+
+body.memorial-day img {
+  filter: grayscale(100%);
+}
+
+body.memorial-day .carousel-content .hero-title-img {
+  filter: grayscale(100%) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+body.memorial-day .nav-links a.qq-group-btn {
+  background-color: #666666;
+}
+
 /* 2. 字体定义 */
 img {
   filter: grayscale(100%);
@@ -369,7 +386,7 @@ body {
   max-width: 600px;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: grayscale(100%) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 .carousel-content .hero-title {

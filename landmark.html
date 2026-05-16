@@ -413,9 +413,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', async function() {
-      // 纪念日颜色切换
+      // 纪念日样式
       if (isMemorialDay()) {
-        document.documentElement.style.setProperty('--primary-color', '#666666');
+        document.body.classList.add('memorial-day');
       }
       // 加载地标数据
       try {
