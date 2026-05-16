@@ -268,6 +268,32 @@
       return false; // 未显示彩蛋，需要加载服务器图标
     }
 
+    // 检查是否是纪念日（5月16日或17日）
+    function isMemorialDay() {
+      const now = new Date();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      return (month === 5 && (day === 16 || day === 17));
+    }
+
+    // 将favicon转换为灰度
+    function applyGrayscaleToFavicon(imageSrc) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.filter = 'grayscale(100%)';
+        ctx.drawImage(img, 0, 0);
+        const grayscaleDataUrl = canvas.toDataURL('image/png');
+        const favicon = document.getElementById('favicon');
+        favicon.href = grayscaleDataUrl;
+      };
+      img.src = imageSrc;
+    }
+
     // 尝试获取服务器图标
     async function loadServerIcon() {
       try {
@@ -281,7 +307,13 @@
             serverIcon.src = data.favicon;
             serverIcon.style.display = 'block';
             logoFallback.style.display = 'none';
-            favicon.href = data.favicon;
+            // 检查是否是纪念日（5月16日或17日），如果是则应用灰度
+            if (isMemorialDay()) {
+              serverIcon.classList.add('grayscale');
+              applyGrayscaleToFavicon(data.favicon);
+            } else {
+              favicon.href = data.favicon;
+            }
           }
         }
       } catch (error) {

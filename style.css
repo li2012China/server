@@ -118,6 +118,10 @@ body {
   object-fit: contain;
 }
 
+.logo-icon-img.grayscale {
+  filter: grayscale(100%);
+}
+
 /* 季节性彩蛋小鸡图标样式 */
 .logo-icon-img.easter-egg {
   position: absolute;
