@@ -381,6 +381,10 @@
 
     // 页面加载时检查彩蛋并查询服务器状态
     document.addEventListener('DOMContentLoaded', function() {
+      // 纪念日颜色切换
+      if (isMemorialDay()) {
+        document.documentElement.style.setProperty('--primary-color', '#666666');
+      }
       const hasEasterEgg = checkSeasonalEasterEgg();
       if (!hasEasterEgg) {
         refreshServerStatus();

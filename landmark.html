@@ -413,6 +413,10 @@
     }
 
     document.addEventListener('DOMContentLoaded', async function() {
+      // 纪念日颜色切换
+      if (isMemorialDay()) {
+        document.documentElement.style.setProperty('--primary-color', '#666666');
+      }
       // 加载地标数据
       try {
         const response = await fetch('jsons/landmarks.json');
