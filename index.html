@@ -222,6 +222,27 @@
   <!-- 提示消息 -->
   <div class="toast" id="toast"></div>
 
+  <!-- 欢迎弹窗 -->
+  <div class="modal-overlay" id="welcome-modal">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeWelcomeModal()">×</button>
+      <div class="modal-content">
+        <h3>欢迎来到 LISSERVER 服务器！</h3>
+        <p>这是一个 Java 版与基岩版互通的 Minecraft 生存服务器。我们致力于为玩家提供一个和谐、友好的游戏环境。</p>
+      </div>
+      <div class="modal-buttons">
+        <a href="guide/join.html" class="modal-btn modal-btn-primary">
+          <span>立即加入服务器</span>
+          <span class="btn-icon">›</span>
+        </a>
+        <button class="modal-btn" onclick="closeWelcomeModal()">
+          <span>继续浏览网站</span>
+          <span class="btn-icon">›</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // 复制到剪贴板
     function copyToClipboard(text) {
@@ -483,6 +504,35 @@
         menuToggle.classList.remove('active');
         menuOverlay.classList.remove('active');
       });
+    });
+
+    // 欢迎弹窗控制
+    function openWelcomeModal() {
+      const modal = document.getElementById('welcome-modal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeWelcomeModal() {
+      const modal = document.getElementById('welcome-modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // 点击遮罩层关闭弹窗
+    document.getElementById('welcome-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeWelcomeModal();
+      }
+    });
+
+    // 页面加载时显示欢迎弹窗（可根据需要添加本地存储检查）
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(openWelcomeModal, 500);
     });
   </script>
 </body>
