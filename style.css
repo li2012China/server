@@ -28,9 +28,6 @@ body.memorial-day .nav-links a.qq-group-btn {
 }
 
 /* 2. 字体定义 */
-img {
-  filter: grayscale(100%);
-}
 
 @font-face {
   font-family: 'MinecraftFive';
