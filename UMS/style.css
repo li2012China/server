@@ -128,7 +128,7 @@ body {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: var(--text-light);
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 0;
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px var(--shadow-color);
@@ -198,7 +198,7 @@ body {
     width: 4px;
     height: 4px;
     background-color: var(--primary-light);
-    border-radius: 50%;
+    border-radius: 0;
     opacity: 0.3;
     animation: float 5s ease-in-out infinite;
 }
@@ -290,7 +290,7 @@ body {
     padding: 14px 32px;
     font-size: 14px;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 0;
     transition: all 0.3s ease;
     letter-spacing: 1px;
 }
@@ -353,7 +353,7 @@ body {
 .server-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 30px;
     display: flex;
     gap: 25px;
@@ -382,7 +382,7 @@ body {
     width: 80px;
     height: 80px;
     background-color: var(--bg-dark);
-    border-radius: 8px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -436,7 +436,7 @@ body {
     color: var(--text-muted);
     background-color: var(--bg-dark);
     padding: 4px 10px;
-    border-radius: 4px;
+    border-radius: 0;
 }
 
 .server-status {
@@ -479,7 +479,7 @@ body {
     color: var(--primary-light);
     background-color: rgba(37, 99, 235, 0.2);
     padding: 4px 12px;
-    border-radius: 4px;
+    border-radius: 0;
     border: 1px solid var(--primary);
 }
 
@@ -509,7 +509,7 @@ body {
 .feature-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 0;
     padding: 30px;
     text-align: center;
     transition: all 0.3s ease;
@@ -532,7 +532,7 @@ body {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-    border-radius: 12px;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -595,7 +595,7 @@ body {
     text-align: center;
     padding: 25px;
     background-color: var(--bg-card);
-    border-radius: 12px;
+    border-radius: 0;
     border: 1px solid var(--border-color);
     min-width: 120px;
 }
@@ -649,7 +649,7 @@ body {
     gap: 15px;
     padding: 15px 20px;
     background-color: var(--bg-card);
-    border-radius: 8px;
+    border-radius: 0;
     border: 1px solid var(--border-color);
     text-align: left;
 }
@@ -668,7 +668,7 @@ body {
 .join-contact {
     padding: 25px;
     background-color: var(--bg-card);
-    border-radius: 12px;
+    border-radius: 0;
     border: 1px solid var(--primary);
 }
 
@@ -765,7 +765,7 @@ body {
     width: 40px;
     height: 40px;
     background-color: var(--bg-card);
-    border-radius: 8px;
+    border-radius: 0;
 }
 
 .social-link:hover {
