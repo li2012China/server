@@ -373,14 +373,33 @@
         banners.forEach((banner, index) => {
           const slide = document.createElement('div');
           slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
-          const buttonHtml = banner.button_text && banner.button_url 
-            ? `<a href="${banner.button_url}" class="hero-button">${banner.button_text}</a>` 
+          
+          // 检查按钮是否需要显示：text 和 link 都不能为空
+          const hasButton = banner.button && banner.button.text && banner.button.text.trim() !== '' 
+                          && banner.button.link && banner.button.link.trim() !== '';
+          const buttonHTML = hasButton 
+            ? `<a href="${banner.button.link}" class="hero-btn" target="_blank">${banner.button.text}<span class="btn-icon">›</span></a>`
             : '';
+          
+          // 检查描述是否需要显示
+          const hasDescription = banner.description && banner.description.trim() !== '';
+          const descriptionHTML = hasDescription 
+            ? `<p class="hero-description">${banner.description}</p>`
+            : '';
+          
           slide.innerHTML = `
             <img src="${banner.image}" alt="${banner.alt}" />
             <div class="carousel-content">
-              <p class="hero-description">${banner.description}</p>
-              ${buttonHtml}
+              <div class="hero-title-container">
+                <img src="images/title.png" alt="${banner.title}" class="hero-title-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <h1 class="hero-title" style="display: none;">${banner.title}</h1>
+              </div>
+              ${descriptionHTML}
+              ${buttonHTML}
+            </div>
+            <div class="carousel-caption">
+              <p class="caption-text">${banner.caption_text}</p>
+              <p class="caption-date">${banner.caption_date}</p>
             </div>
           `;
           slidesContainer.appendChild(slide);
