@@ -400,8 +400,7 @@ body {
 .carousel-content .hero-description {
   font-size: 24px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  color: #a2a2a2;
   margin: 0 0 24px 0;
   line-height: 1.4;
   max-width: 600px;
@@ -458,30 +457,6 @@ body {
 
 .indicator:hover {
   background-color: rgba(255, 255, 255, 0.8);
-}
-
-/* 轮播图右下角文字说明 */
-.carousel-caption {
-  position: absolute;
-  bottom: 60px;
-  right: 30px;
-  text-align: right;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 15px 20px;
-  border-left: 3px solid var(--primary-color);
-}
-
-.carousel-caption .caption-text {
-  font-size: 16px;
-  color: white;
-  margin-bottom: 5px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
-
-.carousel-caption .caption-date {
-  font-size: 14px;
-  color: #a2a2a2;
 }
 
 /* 6. 服务器状态卡片 */
