@@ -27,12 +27,12 @@
     "image": "images/banner5.png",
     "alt": "Minecraft 服务器场景5",
     "title": "Overworld",
-    "description": "去他的兼容性",
+    "description": "1.21.8现已推出！",
     "caption_text": "去他的兼容性，我要这个！",
     "caption_date": "2026.7.1",
     "button": {
-      "text": "",
-      "link": ""
+      "text": "查看游戏更新内容",
+      "link": "https://li2012china.github.io/"
     }
   }
 ]
