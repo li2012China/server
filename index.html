@@ -373,17 +373,15 @@
         banners.forEach((banner, index) => {
           const slide = document.createElement('div');
           slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
+          const buttonHtml = banner.button_text && banner.button_url 
+            ? `<a href="${banner.button_url}" class="hero-button">${banner.button_text}</a>` 
+            : '';
           slide.innerHTML = `
             <img src="${banner.image}" alt="${banner.alt}" />
             <div class="carousel-content">
-              <div class="hero-title-container">
-                <img src="images/title.png" alt="${banner.title}" class="hero-title-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-                <h1 class="hero-title" style="display: none;">${banner.title}</h1>
-              </div>
-            </div>
-            <div class="carousel-caption">
-              <p class="caption-text">${banner.caption_text}</p>
-              <p class="caption-date">${banner.caption_date}</p>
+              <h1 class="hero-title">${banner.title}</h1>
+              <p class="hero-description">${banner.description}</p>
+              ${buttonHtml}
             </div>
           `;
           slidesContainer.appendChild(slide);
