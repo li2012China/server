@@ -3,9 +3,7 @@
     "image": "images/banner3.png",
     "alt": "Minecraft 服务器场景3",
     "title": "Overworld",
-    "description": "服务器全新升级",
     "caption_text": "服务器全新升级，更高效、更有面！",
-    "caption_date": "2026.2.28",
     "button": {
       "text": "查看更新内容",
       "link": "https://qm.qq.com/q/Lep8hVQm0q"
@@ -15,9 +13,7 @@
     "image": "images/banner4.png",
     "alt": "Minecraft 海岛场景",
     "title": "Overworld",
-    "description": "海岛奇兵生电",
     "caption_text": "海岛奇兵生电之旅开始喽！",
-    "caption_date": "2026.4.27",
     "button": {
       "text": "了解海岛玩法",
       "link": "https://li2012china.github.io/"
@@ -27,9 +23,7 @@
     "image": "images/banner5.png",
     "alt": "Minecraft 服务器场景5",
     "title": "Overworld",
-    "description": "1.21.8现已推出！",
     "caption_text": "去他的兼容性，我要这个！",
-    "caption_date": "2026.7.1",
     "button": {
       "text": "查看游戏更新内容",
       "link": "https://li2012china.github.io/"

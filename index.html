@@ -372,11 +372,7 @@
           const slide = document.createElement('div');
           slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
           
-          const hasText = banner.caption_text && banner.caption_text.trim() !== '';
-          const textHTML = hasText 
-            ? `<p class="hero-description">${banner.caption_text}</p>`
-            : '';
-          
+          // 检查按钮是否需要显示：text 和 link 都不能为空
           const hasButton = banner.button && banner.button.text && banner.button.text.trim() !== '' 
                           && banner.button.link && banner.button.link.trim() !== '';
           const buttonHTML = hasButton 
@@ -390,7 +386,7 @@
                 <img src="images/title.png" alt="${banner.title}" class="hero-title-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
                 <h1 class="hero-title" style="display: none;">${banner.title}</h1>
               </div>
-              ${textHTML}
+              <p class="hero-caption">${banner.caption_text}</p>
               ${buttonHTML}
             </div>
           `;
