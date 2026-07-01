@@ -1,0 +1,16 @@
+[
+  {
+    "image": "images/banner3.png",
+    "alt": "Minecraft 服务器场景3",
+    "title": "Overworld",
+    "caption_text": "服务器全新升级，更高效、更有面！",
+    "caption_date": "2026.2.28"
+  },
+  {
+    "image": "images/banner4.png",
+    "alt": "Minecraft 海岛场景",
+    "title": "Overworld",
+    "caption_text": "海岛奇兵生电之旅开始喽！",
+    "caption_date": "2026.4.27"
+  }
+]
