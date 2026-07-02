@@ -369,68 +369,34 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
   z-index: 5;
-  padding: 0 0 70px 60px;
-  box-sizing: border-box;
 }
 
 .carousel-content .hero-title-container {
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
 .carousel-content .hero-title-img {
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 .carousel-content .hero-title {
-  font-size: 72px;
-  font-weight: 600;
+  font-size: 56px;
+  font-weight: 300;
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  line-height: 1.1;
-  margin: 0;
 }
 
-.carousel-content .hero-caption {
-  font-size: 24px;
-  font-weight: 300;
-  color: #a2a2a2;
+.carousel-content .hero-subtitle {
+  font-size: 20px;
+  color: rgba(255,255,255,0.9);
   text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  margin: 10px 0 24px 0;
-  line-height: 1.4;
-  max-width: 600px;
-}
-
-.carousel-content .hero-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: filter 0.2s ease, transform 0.2s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.carousel-content .hero-btn:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-.carousel-content .hero-btn .btn-icon {
-  margin-left: 8px;
-  font-size: 16px;
 }
 
 /* 轮播指示器 */
@@ -458,6 +424,68 @@ body {
 
 .indicator:hover {
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 轮播图右下角文字说明 */
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: left;
+  z-index: 10;
+  background-color: #000;
+  padding: 25px;
+  min-width: 300px;
+}
+
+.carousel-caption .caption-title {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.carousel-caption .caption-desc {
+  font-size: 16px;
+  color: #a2a2a2;
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
+
+.carousel-caption .caption-date {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 轮播箭头 */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-prev {
+  left: 20px;
+}
+
+.carousel-next {
+  right: 20px;
 }
 
 /* 6. 服务器状态卡片 */

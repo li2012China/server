@@ -36,6 +36,8 @@
     <div class="carousel-container">
       <div id="carousel-slides"></div>
       <div class="carousel-indicators" id="carousel-indicators"></div>
+      <button class="carousel-arrow carousel-prev" onclick="prevSlide()">&#10094;</button>
+      <button class="carousel-arrow carousel-next" onclick="nextSlide()">&#10095;</button>
     </div>
   </section>
 
@@ -371,20 +373,18 @@
         banners.forEach((banner, index) => {
           const slide = document.createElement('div');
           slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
-          
-          // 检查按钮是否需要显示：text 和 link 都不能为空
-          const hasButton = banner.button && banner.button.text && banner.button.text.trim() !== '' 
-                          && banner.button.link && banner.button.link.trim() !== '';
-          const buttonHTML = hasButton 
-            ? `<a href="${banner.button.link}" class="hero-btn" target="_blank">${banner.button.text}<span class="btn-icon">›</span></a>`
-            : '';
-          
           slide.innerHTML = `
             <img src="${banner.image}" alt="${banner.alt}" />
             <div class="carousel-content">
-              <h1 class="hero-title">${banner.title}</h1>
-              <p class="hero-caption">${banner.caption_text}</p>
-              ${buttonHTML}
+              <div class="hero-title-container">
+                <img src="images/title.png" alt="${banner.title}" class="hero-title-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <h1 class="hero-title" style="display: none;">${banner.title}</h1>
+              </div>
+            </div>
+            <div class="carousel-caption">
+              <p class="caption-title">${banner.caption_text}</p>
+              ${banner.description ? `<p class="caption-desc">${banner.description}</p>` : ''}
+              <p class="caption-date">${banner.caption_date}</p>
             </div>
           `;
           slidesContainer.appendChild(slide);
