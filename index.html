@@ -74,8 +74,8 @@
           <div class="version-icon">☕</div>
           <h3>Java 版</h3>
           <p>支持 Java 版 Minecraft</p>
-          <p>版本范围 1.8 - 1.21.11</p>
-          <span class="version-tag">1.8 - 1.21.11</span>
+          <p id="java-version-info">版本范围 1.8 - 1.21.11</p>
+          <span class="version-tag" id="java-version-tag">1.8 - 1.21.11</span>
         </div>
         <div class="version-card">
           <div class="version-icon">📱</div>
@@ -271,12 +271,27 @@
             serverDelay.textContent = data.delay + 'ms';
             serverDelay.style.display = 'block';
           }
+          
+          // 更新版本区域显示
+          const versionInfo = data.version || '1.21.11';
+          const match = versionInfo.match(/(\d+\.\d+(?:\.\d+)?)/);
+          const detectedVersion = match ? match[1] : '1.21.11';
+          const javaVersionInfo = document.getElementById('java-version-info');
+          const javaVersionTag = document.getElementById('java-version-tag');
+          if (javaVersionInfo) javaVersionInfo.textContent = '当前版本 ' + detectedVersion;
+          if (javaVersionTag) javaVersionTag.textContent = detectedVersion;
         } else {
           // 服务器离线
           statusDot.className = 'status-indicator offline';
           statusText.textContent = '离线';
           serverInfo.style.display = 'none';
           serverDelay.style.display = 'none';
+          
+          // 恢复默认版本显示
+          const javaVersionInfo = document.getElementById('java-version-info');
+          const javaVersionTag = document.getElementById('java-version-tag');
+          if (javaVersionInfo) javaVersionInfo.textContent = '版本范围 1.8 - 1.21.11';
+          if (javaVersionTag) javaVersionTag.textContent = '1.8 - 1.21.11';
         }
       } catch (error) {
         console.error('查询服务器状态失败:', error);
