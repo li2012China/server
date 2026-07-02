@@ -468,37 +468,6 @@ body {
   background-color: #005a9e;
 }
 
-/* 轮播箭头 */
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  width: 50px;
-  height: 50px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.carousel-prev {
-  left: 20px;
-}
-
-.carousel-next {
-  right: 20px;
-}
-
 /* 6. 服务器状态卡片 */
 .status-section {
   padding: 60px 30px;
