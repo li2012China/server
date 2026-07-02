@@ -452,11 +452,6 @@ body {
   line-height: 1.5;
 }
 
-.carousel-caption .caption-date {
-  font-size: 14px;
-  color: #666;
-}
-
 /* 轮播箭头 */
 .carousel-arrow {
   position: absolute;

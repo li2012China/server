@@ -4,23 +4,20 @@
     "alt": "Minecraft 服务器场景3",
     "title": "Overworld",
     "caption_text": "服务器全新升级，更高效、更有面！",
-    "description": "全面优化服务器性能，带来更流畅的游戏体验",
-    "caption_date": "2026.2.28"
+    "description": "全面优化服务器性能，带来更流畅的游戏体验"
   },
   {
     "image": "images/banner4.png",
     "alt": "Minecraft 海岛场景",
     "title": "Overworld",
     "caption_text": "海岛奇兵生电之旅开始喽！",
-    "description": "探索神秘的海岛世界，开启生电冒险新篇章",
-    "caption_date": "2026.4.27"
+    "description": "探索神秘的海岛世界，开启生电冒险新篇章"
   },
   {
     "image": "images/banner5.png",
     "alt": "Minecraft 服务器场景5",
     "title": "Overworld",
     "caption_text": "去他的兼容性，我要这个！",
-    "description": "追求极致体验，新版本新玩法等你来探索",
-    "caption_date": "2026.7.1"
+    "description": "追求极致体验，新版本新玩法等你来探索"
   }
 ]
