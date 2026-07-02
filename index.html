@@ -383,6 +383,7 @@
             <div class="carousel-caption">
               <p class="caption-title">${banner.caption_text}</p>
               ${banner.description ? `<p class="caption-desc">${banner.description}</p>` : ''}
+              ${banner.button_text && banner.button_link ? `<a href="${banner.button_link}" class="caption-btn">${banner.button_text}</a>` : ''}
             </div>
           `;
           slidesContainer.appendChild(slide);
