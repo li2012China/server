@@ -412,7 +412,7 @@
       { name: 'xiaoyang2011', image: 'images/players/placeholder.png', desc: '农场专家，种植了大~片的农作物' }
     ];
 
-    let hallAutoPlayInterval;
+    let hallAutoPlayId;
     let isHallHovering = false;
 
     function createHallCard(player) {
@@ -477,17 +477,20 @@
 
     function startHallAutoPlay() {
       stopHallAutoPlay();
-      hallAutoPlayInterval = setInterval(() => {
+      function scrollStep() {
         if (!isHallHovering) {
-          scrollHallCarousel(1);
+          const track = document.getElementById('hall-carousel-track');
+          track.scrollLeft += 0.5;
         }
-      }, 3000);
+        hallAutoPlayId = requestAnimationFrame(scrollStep);
+      }
+      scrollStep();
     }
 
     function stopHallAutoPlay() {
-      if (hallAutoPlayInterval) {
-        clearInterval(hallAutoPlayInterval);
-        hallAutoPlayInterval = null;
+      if (hallAutoPlayId) {
+        cancelAnimationFrame(hallAutoPlayId);
+        hallAutoPlayId = null;
       }
     }
 
