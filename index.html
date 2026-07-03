@@ -106,8 +106,7 @@
       <div class="hall-carousel-wrapper">
         <div class="hall-carousel-track" id="hall-carousel-track">
         </div>
-        <button class="hall-carousel-prev" onclick="scrollHallCarousel(-1)">&#10094;</button>
-        <button class="hall-carousel-next" onclick="scrollHallCarousel(1)">&#10095;</button>
+
       </div>
     </div>
   </section>
@@ -464,15 +463,6 @@
       });
       
       startHallAutoPlay();
-    }
-
-    function scrollHallCarousel(direction) {
-      const track = document.getElementById('hall-carousel-track');
-      const cardWidth = 220;
-      track.scrollBy({
-        left: cardWidth * direction,
-        behavior: 'smooth'
-      });
     }
 
     function startHallAutoPlay() {
