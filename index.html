@@ -98,35 +98,16 @@
     </div>
   </section>
 
-  <!-- 服务器特色 -->
-  <section class="features-section" id="features">
-    <div class="features-container">
-      <h2 class="section-title">服务器特色</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <h4>🤝 和谐社区</h4>
-          <p>我们致力于打造一个友好、和谐的游戏环境，让每一位玩家都能感受到温暖。</p>
+  <!-- 名人堂轮播 -->
+  <section class="hall-carousel-section" id="hall-of-fame">
+    <div class="hall-carousel-container">
+      <h2 class="section-title">名人堂</h2>
+      <p class="hall-carousel-subtitle">Overworld 服务器的杰出玩家们</p>
+      <div class="hall-carousel-wrapper">
+        <div class="hall-carousel-track" id="hall-carousel-track">
         </div>
-        <div class="feature-card">
-          <h4>🛠 合作共建</h4>
-          <p>鼓励玩家之间的合作，共同建设属于大家的美好世界。</p>
-        </div>
-        <div class="feature-card">
-          <h4>☮ 和平游戏</h4>
-          <p>主张和平游戏方式，减少冲突，享受建造和探索的乐趣。</p>
-        </div>
-        <div class="feature-card">
-          <h4>😄 欢乐时光</h4>
-          <p>在这里，游戏的本质是带来快乐，让我们一起创造美好回忆。</p>
-        </div>
-        <div class="feature-card">
-          <h4>🎮 双版互通</h4>
-          <p>Java版和基岩版玩家可以在同一个世界中一起游玩。</p>
-        </div>
-        <div class="feature-card">
-          <h4>👂 倾听意见</h4>
-          <p>我们重视每一位玩家的建议，让服务器变得更好。</p>
-        </div>
+        <button class="hall-carousel-prev" onclick="scrollHallCarousel(-1)">&#10094;</button>
+        <button class="hall-carousel-next" onclick="scrollHallCarousel(1)">&#10095;</button>
       </div>
     </div>
   </section>
@@ -367,6 +348,7 @@
         refreshServerStatus();
       }
       loadBanners();
+      loadHallOfFame();
     });
 
     // 图片轮播功能 - 从 JSON 动态加载
@@ -416,6 +398,47 @@
       } catch (error) {
         console.error('加载 banner 数据失败:', error);
       }
+    }
+
+    const hallOfFame = [
+      { name: 'Browlmc', image: 'images/players/Browlmc.png', desc: '建筑大师，建筑大师！' },
+      { name: 'kanwentong', image: 'images/players/placeholder.png', desc: '服务器的忠实玩家' },
+      { name: 'kjq2012', image: 'images/players/kjq2012.png', desc: '红石工程师，擅长制作各种机关' },
+      { name: 'LS_110120119', image: 'images/players/placeholder.png', desc: '跑图王，同时贡献了2座大型刷怪塔' },
+      { name: 'li2012China', image: 'images/players/li2012China.png', desc: '服务器创建者，菜鸟' },
+      { name: 'limohan266', image: 'images/players/placeholder.png', desc: '小白，上线频率之王' },
+      { name: 'wangkaikai111', image: 'images/players/wangkaikai111.png', desc: '游戏大佬，服务器管理员' },
+      { name: 'wyf666', image: 'images/players/placeholder.png', desc: '生存大师，生存大师！' },
+      { name: 'xiaoyang2011', image: 'images/players/placeholder.png', desc: '农场专家，种植了大~片的农作物' }
+    ];
+
+    function loadHallOfFame() {
+      const track = document.getElementById('hall-carousel-track');
+      hallOfFame.forEach(player => {
+        const card = document.createElement('div');
+        card.className = 'hall-carousel-card';
+        card.innerHTML = `
+          <div class="hall-carousel-poster">
+            <img src="${player.image}" alt="${player.name}" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-carousel-fallback').style.display='flex';" />
+            <div class="hall-carousel-fallback" style="display: none;">${player.name}</div>
+            <div class="hall-carousel-watermark">原创，禁止复制</div>
+          </div>
+          <div class="hall-carousel-info">
+            <h3>${player.name}</h3>
+            <p>${player.desc}</p>
+          </div>
+        `;
+        track.appendChild(card);
+      });
+    }
+
+    function scrollHallCarousel(direction) {
+      const track = document.getElementById('hall-carousel-track');
+      const scrollAmount = 220;
+      track.scrollBy({
+        left: scrollAmount * direction,
+        behavior: 'smooth'
+      });
     }
 
     function showSlide(index) {
