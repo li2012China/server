@@ -412,33 +412,83 @@
       { name: 'xiaoyang2011', image: 'images/players/placeholder.png', desc: '农场专家，种植了大~片的农作物' }
     ];
 
+    let hallAutoPlayInterval;
+    let isHallHovering = false;
+
+    function createHallCard(player) {
+      const card = document.createElement('div');
+      card.className = 'hall-carousel-card';
+      card.innerHTML = `
+        <div class="hall-carousel-poster">
+          <img src="${player.image}" alt="${player.name}" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-carousel-fallback').style.display='flex';" />
+          <div class="hall-carousel-fallback" style="display: none;">${player.name}</div>
+          <div class="hall-carousel-watermark">原创，禁止复制</div>
+        </div>
+        <div class="hall-carousel-info">
+          <h3>${player.name}</h3>
+          <p>${player.desc}</p>
+        </div>
+      `;
+      return card;
+    }
+
     function loadHallOfFame() {
       const track = document.getElementById('hall-carousel-track');
       hallOfFame.forEach(player => {
-        const card = document.createElement('div');
-        card.className = 'hall-carousel-card';
-        card.innerHTML = `
-          <div class="hall-carousel-poster">
-            <img src="${player.image}" alt="${player.name}" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-carousel-fallback').style.display='flex';" />
-            <div class="hall-carousel-fallback" style="display: none;">${player.name}</div>
-            <div class="hall-carousel-watermark">原创，禁止复制</div>
-          </div>
-          <div class="hall-carousel-info">
-            <h3>${player.name}</h3>
-            <p>${player.desc}</p>
-          </div>
-        `;
-        track.appendChild(card);
+        track.appendChild(createHallCard(player));
       });
+      
+      hallOfFame.forEach(player => {
+        track.appendChild(createHallCard(player));
+      });
+      
+      const wrapper = document.querySelector('.hall-carousel-wrapper');
+      wrapper.addEventListener('mouseenter', () => {
+        isHallHovering = true;
+        stopHallAutoPlay();
+      });
+      wrapper.addEventListener('mouseleave', () => {
+        isHallHovering = false;
+        startHallAutoPlay();
+      });
+      
+      track.addEventListener('scroll', () => {
+        const totalWidth = track.scrollWidth;
+        const halfWidth = totalWidth / 2;
+        
+        if (track.scrollLeft >= halfWidth) {
+          track.scrollLeft = 0;
+        } else if (track.scrollLeft < 0) {
+          track.scrollLeft = halfWidth;
+        }
+      });
+      
+      startHallAutoPlay();
     }
 
     function scrollHallCarousel(direction) {
       const track = document.getElementById('hall-carousel-track');
-      const scrollAmount = 220;
+      const cardWidth = 220;
       track.scrollBy({
-        left: scrollAmount * direction,
+        left: cardWidth * direction,
         behavior: 'smooth'
       });
+    }
+
+    function startHallAutoPlay() {
+      stopHallAutoPlay();
+      hallAutoPlayInterval = setInterval(() => {
+        if (!isHallHovering) {
+          scrollHallCarousel(1);
+        }
+      }, 3000);
+    }
+
+    function stopHallAutoPlay() {
+      if (hallAutoPlayInterval) {
+        clearInterval(hallAutoPlayInterval);
+        hallAutoPlayInterval = null;
+      }
     }
 
     function showSlide(index) {
