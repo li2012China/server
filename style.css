@@ -481,18 +481,30 @@ body {
 }
 
 .hall-carousel-subtitle {
-  text-align: center;
+  text-align: left;
   color: #a2a2a2;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   font-size: 14px;
 }
 
 .hall-carousel-wrapper {
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.hall-carousel-header {
+  flex: 0 0 200px;
+  padding-top: 10px;
+}
+
+.hall-carousel-header .section-title {
+  text-align: left;
+  margin-bottom: 10px;
 }
 
 .hall-carousel-track {
+  flex: 1;
   display: flex;
   gap: 20px;
   overflow-x: auto;
