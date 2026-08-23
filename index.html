@@ -52,10 +52,11 @@
         </div>
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #333;">
           <p style="font-size: 14px; color: #a2a2a2; margin-bottom: 8px;">服务器地址</p>
-          <div class="value" style="font-size: 16px; margin-bottom: 10px;">103.85.86.51:17125</div>
-          <button class="copy-btn" onclick="copyToClipboard('103.85.86.51:17125')">复制地址</button>
+          <div class="value" style="font-size: 16px; display: flex; align-items: center; gap: 10px;">
+            103.85.86.51:17125
+            <button class="copy-btn" onclick="copyToClipboard('103.85.86.51:17125')">复制</button>
+          </div>
         </div>
-        <button class="copy-btn" onclick="refreshServerStatus()" id="refresh-btn" style="margin-top: 10px;">刷新状态</button>
       </div>
     </div>
   </section>
