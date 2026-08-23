@@ -1124,6 +1124,34 @@ body {
   padding: 25px 20px;
 }
 
+.index-menu-section .menu-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.index-menu-section .menu-grid {
+  flex: 1;
+}
+
+.index-menu-section .menu-header {
+  flex: 0 0 200px;
+  padding-top: 10px;
+}
+
+.index-menu-section .menu-header .section-title {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.index-menu-section .menu-subtitle {
+  text-align: right;
+  color: #a2a2a2;
+  font-size: 14px;
+}
+
 .menu-header {
   text-align: center;
   margin-bottom: 50px;
