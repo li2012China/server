@@ -67,18 +67,16 @@
       <h2 class="section-title">支持的版本</h2>
       <div class="version-grid">
         <div class="version-card">
-          <div class="version-icon">☕</div>
           <h3>Java 版</h3>
-          <p>支持 Java 版 Minecraft</p>
-          <p id="java-version-info">版本范围 1.8 - 1.21.11</p>
           <span class="version-tag" id="java-version-tag">1.8 - 1.21.11</span>
         </div>
         <div class="version-card">
-          <div class="version-icon">📱</div>
           <h3>基岩版</h3>
-          <p>支持基岩版 Minecraft</p>
-          <p>手机、主机、Windows 10/11 版</p>
           <span class="version-tag">最新版</span>
+        </div>
+        <div class="version-card" onclick="window.location.href='modpack/index.html'">
+          <h3>使用整合包（推荐）</h3>
+          <span class="version-tag">下载</span>
         </div>
       </div>
     </div>
@@ -265,9 +263,7 @@
           const versionInfo = data.version || '1.21.11';
           const match = versionInfo.match(/(\d+\.\d+(?:\.\d+)?)/);
           const detectedVersion = match ? match[1] : '1.21.11';
-          const javaVersionInfo = document.getElementById('java-version-info');
           const javaVersionTag = document.getElementById('java-version-tag');
-          if (javaVersionInfo) javaVersionInfo.textContent = '当前版本 ' + detectedVersion;
           if (javaVersionTag) javaVersionTag.textContent = detectedVersion;
         } else {
           // 服务器离线
@@ -277,9 +273,7 @@
           serverDelay.style.display = 'none';
           
           // 恢复默认版本显示
-          const javaVersionInfo = document.getElementById('java-version-info');
           const javaVersionTag = document.getElementById('java-version-tag');
-          if (javaVersionInfo) javaVersionInfo.textContent = '版本范围 1.8 - 1.21.11';
           if (javaVersionTag) javaVersionTag.textContent = '1.8 - 1.21.11';
         }
       } catch (error) {
