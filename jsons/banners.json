@@ -1,19 +1,10 @@
 [
   {
-    "image": "images/banner6.png",
-    "alt": "Minecraft 服务器场景C",
-    "title": "OverworldC",
-    "caption_text": "你好，新蒸程！现已进入测试",
-    "description": "探索史诗般的OverworldC大陆，在新服务器开启航空学冒险新篇章",
-    "button_text": "起飞！",
-    "button_link": "https://qm.qq.com/q/Lep8hVQm0q"
-  },
-  {
     "image": "images/banner5.png",
     "alt": "Minecraft 服务器场景26.2",
     "title": "Overworld",
-    "caption_text": "去他的兼容性，我要这个！",
-    "description": "混沌立方更新现已实装Overworld服务器",
+    "caption_text": "享受主世界！",
+    "description": "现在在26.2中探索主世界，搭建引人注目的建筑，获得赞赏！",
     "button_text": "查看游戏更新内容",
     "button_link": "https://www.minecraft.net/zh-hans/updates/chaos-cubed-drop"
   }
