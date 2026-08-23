@@ -792,11 +792,12 @@ body {
   color: white;
   border: none;
   cursor: pointer;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Fusion Pixel', 'Segoe UI', Tahoma, Geneva, Verdana, 'Segoe UI Emoji', sans-serif;
   font-size: 15px;
   transition: filter 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-decoration: none;
 }
 
 .map-btn:hover {
