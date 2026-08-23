@@ -50,10 +50,6 @@
           <span id="status-text">查询中...</span>
           <span id="server-delay" style="font-size: 14px; color: #a2a2a2; display: none;"></span>
         </div>
-        <div class="server-info" id="server-info" style="display: none;">
-          <p><span id="player-count">--</span> / <span id="max-players">--</span> 玩家在线</p>
-          <p id="server-version" style="font-size: 14px; color: #a2a2a2; margin-top: 5px;">--</p>
-        </div>
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #333;">
           <p style="font-size: 14px; color: #a2a2a2; margin-bottom: 8px;">服务器地址</p>
           <div class="value" style="font-size: 16px; margin-bottom: 10px;">103.85.86.51:17125</div>
@@ -216,17 +212,12 @@
     async function refreshServerStatus() {
       const statusDot = document.getElementById('status-dot');
       const statusText = document.getElementById('status-text');
-      const serverInfo = document.getElementById('server-info');
-      const playerCount = document.getElementById('player-count');
-      const maxPlayers = document.getElementById('max-players');
-      const serverVersion = document.getElementById('server-version');
       const serverDelay = document.getElementById('server-delay');
       const refreshBtn = document.getElementById('refresh-btn');
 
       // 设置为加载状态
       statusDot.className = 'status-indicator loading';
       statusText.textContent = '查询中...';
-      serverInfo.style.display = 'none';
       serverDelay.style.display = 'none';
       refreshBtn.disabled = true;
       refreshBtn.textContent = '刷新中...';
@@ -262,11 +253,7 @@
         if (data.status === 'online') {
           // 服务器在线
           statusDot.className = 'status-indicator';
-          statusText.textContent = '在线';
-          playerCount.textContent = data.online ?? 0;
-          maxPlayers.textContent = data.max ?? '--';
-          serverVersion.textContent = data.version || '未知版本';
-          serverInfo.style.display = 'block';
+          statusText.textContent = '在线 ' + (data.online ?? 0) + ' 人';
           // 显示延迟
           if (data.delay) {
             serverDelay.textContent = data.delay + 'ms';
