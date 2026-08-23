@@ -367,7 +367,7 @@
 
     async function loadBanners() {
       try {
-        const response = await fetch('jsons/banners.json');
+        const response = await fetch('/server/jsons/banners.json');
         const banners = await response.json();
         
         const slidesContainer = document.getElementById('carousel-slides');
@@ -377,7 +377,7 @@
           const slide = document.createElement('div');
           slide.className = 'carousel-slide' + (index === 0 ? ' active' : '');
           slide.innerHTML = `
-            <img src="${banner.image}" alt="${banner.alt}" />
+            <img src="/server/${banner.image}" alt="${banner.alt}" />
             <div class="carousel-content">
               <div class="hero-title-container">
                 <h1 class="hero-title">${banner.title}</h1>
