@@ -37,115 +37,7 @@
       <p class="hall-subtitle">Overworld 服务器的杰出玩家们</p>
     </div>
 
-    <div class="hall-grid">
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="images/players/Browlmc.png" alt="Browlmc" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">Browlmc</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>Browlmc</h3>
-          <p class="hall-desc">建筑大师，建筑大师！</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="https://mc-heads.net/body/kanwentong/left" alt="kanwentong" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">kanwentong</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>kanwentong</h3>
-          <p class="hall-desc">服务器的忠实玩家</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="images/players/kjq2012.png" alt="kjq2012" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">kjq2012</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>kjq2012</h3>
-          <p class="hall-desc">红石工程师，擅长制作各种机关</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="https://mc-heads.net/body/LS_110120119/left" alt="LS_110120119" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">LS_110120119</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>LS_110120119</h3>
-          <p class="hall-desc">跑图王，同时贡献了2座大型刷怪塔</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="images/players/li2012China.png" alt="li2012China" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">li2012China</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>li2012China</h3>
-          <p class="hall-desc">服务器创建者，菜鸟</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="https://mc-heads.net/body/limohan266/left" alt="limohan266" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">limohan266</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>limohan266</h3>
-          <p class="hall-desc">小白，上线频率之王</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="images/players/wangkaikai111.png" alt="wangkaikai111" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">wangkaikai111</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>wangkaikai111</h3>
-          <p class="hall-desc">游戏大佬，服务器管理员</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="https://mc-heads.net/body/wyf666/left" alt="wyf666" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">wyf666</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>wyf666</h3>
-          <p class="hall-desc">生存大师，生存大师！</p>
-        </div>
-      </div>
-
-      <div class="hall-card">
-        <div class="hall-poster">
-          <img src="https://mc-heads.net/body/xiaoyang2011/left" alt="xiaoyang2011" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
-          <div class="hall-fallback" style="display: none;">xiaoyang2011</div>
-          <div class="hall-watermark">原创，禁止复制</div>
-        </div>
-        <div class="hall-info">
-          <h3>xiaoyang2011</h3>
-          <p class="hall-desc">农场专家，种植了大~片的农作物</p>
-        </div>
-      </div>
-    </div>
+    <div class="hall-grid" id="hall-grid"></div>
   </section>
 
   <!-- 页脚 -->
@@ -178,6 +70,34 @@
 
     // 设置当前年份
     document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // 动态加载名人堂数据
+    async function loadHallData() {
+      try {
+        const res = await fetch('../jsons/halls/s3.json');
+        const players = await res.json();
+        const grid = document.getElementById('hall-grid');
+        players.forEach(player => {
+          const card = document.createElement('div');
+          card.className = 'hall-card';
+          card.innerHTML = `
+            <div class="hall-poster">
+              <img src="${player.image}" alt="${player.name}" onerror="this.style.display='none'; this.parentElement.querySelector('.hall-fallback').style.display='flex';" />
+              <div class="hall-fallback" style="display: none;">${player.name}</div>
+              <div class="hall-watermark">原创，禁止复制</div>
+            </div>
+            <div class="hall-info">
+              <h3>${player.name}</h3>
+              <p class="hall-desc">${player.desc}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('加载名人堂数据失败:', error);
+      }
+    }
+    loadHallData();
 
     // 切换移动端菜单
     function toggleMenu() {
