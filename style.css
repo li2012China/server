@@ -1121,7 +1121,22 @@ body {
 }
 
 .index-menu-section .menu-card {
-  padding: 25px 20px;
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  border-left: none;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.index-menu-section .menu-card-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.index-menu-section .menu-card-title {
+  margin: 0;
 }
 
 .index-menu-section .menu-wrapper {
