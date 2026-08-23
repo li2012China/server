@@ -280,7 +280,7 @@
       const modalBody = document.getElementById('landmark-modal-body');
       
       modalTitle.innerHTML = `${title}<span class="landmark-author">by ${author}</span>`;
-      modalBody.innerHTML = `<img src="${image}" alt="${title}"><p>${description}</p>`;
+      modalBody.innerHTML = `<img src="/server/${image}" alt="${title}"><p>${description}</p>`;
       
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
@@ -346,7 +346,7 @@
       if (month >= 3 && month <= 5) {
         if (Math.random() < 0.25) {
           const chickIcon = document.createElement('img');
-          chickIcon.src = 'images/eggs/chick.png';
+          chickIcon.src = '/server/images/eggs/chick.png';
           chickIcon.alt = '小鸡彩蛋';
           chickIcon.className = 'logo-icon-img easter-egg';
 
@@ -419,7 +419,7 @@
       }
       // 加载地标数据
       try {
-        const response = await fetch('jsons/landmarks.json');
+        const response = await fetch('/server/jsons/landmarks.json');
         const landmarks = await response.json();
         
         const grid = document.getElementById('landmark-grid');
@@ -429,7 +429,7 @@
           card.onclick = () => openLandmarkModal(landmark.name, landmark.image, landmark.description, landmark.author);
           card.innerHTML = `
             <div class="landmark-poster">
-              <img src="${landmark.image}" alt="${landmark.name}" />
+              <img src="/server/${landmark.image}" alt="${landmark.name}" />
             </div>
             <div class="landmark-info">
               <h3>${landmark.name}<span class="landmark-author">by ${landmark.author}</span></h3>
