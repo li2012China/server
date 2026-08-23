@@ -1170,6 +1170,33 @@ body {
   font-size: 14px;
 }
 
+/* 窄屏响应式 */
+@media (max-width: 768px) {
+  .index-menu-section .menu-wrapper {
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+
+  .index-menu-section .menu-header {
+    flex: unset;
+    padding-top: 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  .index-menu-section .menu-header .section-title {
+    text-align: left;
+  }
+
+  .index-menu-section .menu-subtitle {
+    text-align: left;
+  }
+
+  .index-menu-section .menu-grid {
+    width: 100%;
+  }
+}
+
 .index-menu-section .menu-more-btn {
   display: flex;
   align-items: center;
