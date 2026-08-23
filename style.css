@@ -1149,6 +1149,9 @@ body {
 
 .index-menu-section .menu-grid {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .index-menu-section .menu-header {
