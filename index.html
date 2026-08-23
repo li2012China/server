@@ -427,7 +427,7 @@
 
     async function loadHallOfFame() {
       try {
-        const res = await fetch('jsons/halls/s3.json');
+        const res = await fetch('/server/jsons/halls/s3.json');
         hallOfFame = await res.json();
         const track = document.getElementById('hall-carousel-track');
         hallOfFame.forEach(player => {
