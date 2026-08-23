@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>名人堂（第4季） - Overworld</title>
+  <title>名人堂 - Overworld</title>
   <link rel="stylesheet" href="/server/style.css" />
   <link id="favicon" rel="icon" href="" type="image/png" />
 </head>
@@ -17,7 +17,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../index.html">首页</a>
       <a href="menu.html">综合菜单</a>
-      <a href="hall/s4.html">名人堂（第4季）</a>
+      <a href="hall/s4.html">名人堂</a>
       <a href="https://li2012china.github.io/" target="_blank">主站</a>
       <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
     </div>
@@ -30,11 +30,11 @@
   <!-- 菜单背景遮罩 -->
   <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
 
-  <!-- 名人堂（第4季）内容 -->
+  <!-- 名人堂内容 -->
   <section class="hall-section">
     <div class="hall-header">
-      <h1 class="hall-title">名人堂（第4季）</h1>
-      <p class="hall-subtitle">Overworld 服务器的杰出玩家们（第4季）</p>
+      <h1 class="hall-title">名人堂</h1>
+      <p class="hall-subtitle">Overworld 服务器的杰出玩家们</p>
     </div>
 
     <div class="hall-grid" id="hall-grid"></div>
@@ -71,7 +71,7 @@
     // 设置当前年份
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // 动态加载名人堂（第4季）数据
+    // 动态加载名人堂数据
     async function loadHallData() {
       try {
         const res = await fetch('/server/jsons/halls/s4.json');
@@ -94,7 +94,7 @@
           grid.appendChild(card);
         });
       } catch (error) {
-        console.error('加载名人堂（第4季）数据失败:', error);
+        console.error('加载名人堂数据失败:', error);
       }
     }
     loadHallData();
