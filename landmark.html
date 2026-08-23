@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>地标 - Overworld</title>
+  <link rel="stylesheet" href="style.css" />
+  <link id="favicon" rel="icon" href="" type="image/png" />
+  <style>
+    @font-face {
+      font-family: 'MinecraftTen';
+      src: url('fonts/MinecraftTen.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'MinecraftFive';
+      src: url('fonts/MinecraftFive.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'MinecraftSeven';
+      src: url('fonts/MinecraftSeven.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .landmark-section {
+      margin-top: 60px;
+      padding: 60px 30px;
+      min-height: calc(100vh - 60px - 200px);
+    }
+
+    .landmark-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .landmark-title {
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-family: 'Fusion Pixel', sans-serif;
+    }
+
+    .landmark-subtitle {
+      font-size: 18px;
+      color: #a2a2a2;
+    }
+
+    .landmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .landmark-card {
+      background-color: #2a2a2a;
+      border: 1px solid #333;
+      border-left: 3px solid var(--primary-color);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .landmark-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .landmark-poster {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: #1f1f1f;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .landmark-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .landmark-info {
+      padding: 20px;
+      border-top: 1px solid #333;
+    }
+
+    .landmark-info h3 {
+      font-size: 18px;
+      color: white;
+      font-weight: 400;
+      margin: 0 0 10px 0;
+      font-family: 'MinecraftTen', sans-serif;
+    }
+
+    .landmark-author {
+      font-size: 12px;
+      color: #888;
+      font-weight: bold;
+      margin-left: 8px;
+      font-family: 'MinecraftFive', sans-serif;
+    }
+
+    .landmark-desc {
+      font-size: 14px;
+      color: #a2a2a2;
+      margin: 0;
+      line-height: 1.5;
+      font-family: 'MinecraftSeven', sans-serif;
+    }
+
+    .modal {
+      display: block;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: #1a1a1a;
+      margin: 0;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: translateX(0);
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      color: white;
+    }
+
+    .close:hover {
+      color: #aaa;
+    }
+
+    .modal-header {
+      padding: 20px 0;
+      border-bottom: 1px solid #333;
+      margin-top: 40px;
+    }
+
+    .modal-title {
+      font-size: 28px;
+      color: white;
+      font-weight: 400;
+      margin: 0 0 10px 0;
+      font-family: 'MinecraftTen', sans-serif;
+    }
+
+    .modal-body {
+      color: #a2a2a2;
+      line-height: 1.6;
+      padding-top: 20px;
+      font-family: 'MinecraftSeven', sans-serif;
+    }
+
+    .modal-body img {
+      max-width: 100%;
+      height: auto;
+      margin: 15px 0;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .landmark-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .landmark-title {
+        font-size: 32px;
+      }
+
+      .landmark-subtitle {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <img id="server-icon" src="" alt="服务器图标" class="logo-icon-img" style="display: none;" />
+      <div class="logo-icon" id="logo-fallback">⛏</div>
+    </a>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">首页</a>
+      <a href="menu.html">综合菜单</a>
+      <a href="hall.html">名人堂</a>
+      <a href="https://li2012china.github.io/" target="_blank">主站</a>
+      <a href="https://qm.qq.com/q/Lep8hVQm0q" target="_blank" class="qq-group-btn">加入QQ群</a>
+    </div>
+    <button class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <!-- 菜单背景遮罩 -->
+  <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+  <!-- 地标内容 -->
+  <section class="landmark-section">
+    <div class="landmark-header">
+      <h1 class="landmark-title">服务器地标</h1>
+      <p class="landmark-subtitle">探索服务器中的标志性建筑</p>
+    </div>
+
+    <div class="landmark-grid" id="landmark-grid">
+    </div>
+  </section>
+
+  <!-- 地标详情模态框 -->
+  <div class="modal" id="landmark-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLandmarkModal()"><img src="images/ui/return.png" alt="返回" style="width: 24px; height: 24px; filter: invert(1);"></span>
+      <div class="modal-header">
+        <h2 class="modal-title" id="landmark-modal-title"></h2>
+      </div>
+      <div class="modal-body" id="landmark-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>&copy; <span id="current-year"></span> Overworld. 作者：马太Matthew</p>
+    <div class="footer-links">
+      <a href="#home">返回顶部</a>
+      <a href="http://103.85.86.51:22621" target="_blank">3D地图</a>
+      <a href="http://play.simpfun.cn:42651/" target="_blank">后台</a>
+      <a href="https://space.bilibili.com/3546739839601525" target="_blank" class="social-link"></a>
+      <a href="https://www.douyin.com/user/MS4wLjABAAAADCpbCTAxqq4cgc_nLj_8by-rzA1ZC_QGfJSiyCJJKYk?from_tab_name=main" target="_blank" class="social-link"></a>
+      <a href="https://youtube.com/@li2012China" target="_blank" class="social-link"></a>
+    </div>
+    <p class="footer-made-with">Made with ❤️ and AI.</p>
+  </footer>
+
+  <!-- 提示消息 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 打开地标详情模态框
+    function openLandmarkModal(title, image, description, author) {
+      const modal = document.getElementById('landmark-modal');
+      const modalTitle = document.getElementById('landmark-modal-title');
+      const modalBody = document.getElementById('landmark-modal-body');
+      
+      modalTitle.innerHTML = `${title}<span class="landmark-author">by ${author}</span>`;
+      modalBody.innerHTML = `<img src="${image}" alt="${title}"><p>${description}</p>`;
+      
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭地标详情模态框
+    function closeLandmarkModal() {
+      const modal = document.getElementById('landmark-modal');
+      modal.classList.remove('show');
+      
+      setTimeout(() => {
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // 点击模态框外部关闭
+    document.getElementById('landmark-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLandmarkModal();
+      }
+    });
+
+    // 显示提示消息
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 设置当前年份
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // 切换移动端菜单
+    function toggleMenu() {
+      const navLinks = document.getElementById('nav-links');
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuOverlay = document.getElementById('menu-overlay');
+      navLinks.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+    }
+
+    // 点击导航链接后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.getElementById('nav-links');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+        menuOverlay.classList.remove('active');
+      });
+    });
+
+    // 检查是否显示季节性彩蛋
+    function checkSeasonalEasterEgg() {
+      const now = new Date();
+      const month = now.getMonth() + 1;
+
+      if (month >= 3 && month <= 5) {
+        if (Math.random() < 0.25) {
+          const chickIcon = document.createElement('img');
+          chickIcon.src = 'images/eggs/chick.png';
+          chickIcon.alt = '小鸡彩蛋';
+          chickIcon.className = 'logo-icon-img easter-egg';
+
+          const logoContainer = document.querySelector('.logo');
+          logoContainer.appendChild(chickIcon);
+
+          return false;
+        }
+      }
+      return false;
+    }
+
+    // 检查是否是纪念日（5月16日或17日）
+    function isMemorialDay() {
+      const now = new Date();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      return (month === 5 && (day === 16 || day === 17));
+    }
+
+    // 将favicon转换为灰度
+    function applyGrayscaleToFavicon(imageSrc) {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.filter = 'grayscale(100%)';
+        ctx.drawImage(img, 0, 0);
+        const grayscaleDataUrl = canvas.toDataURL('image/png');
+        const favicon = document.getElementById('favicon');
+        favicon.href = grayscaleDataUrl;
+      };
+      img.src = imageSrc;
+    }
+
+    // 加载服务器图标
+    async function loadServerIcon() {
+      try {
+        const response = await fetch('https://motdbe.blackbe.work/api/java?host=play.simpfun.cn:17125');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.favicon) {
+            const serverIcon = document.getElementById('server-icon');
+            const logoFallback = document.getElementById('logo-fallback');
+            const favicon = document.getElementById('favicon');
+            serverIcon.src = data.favicon;
+            serverIcon.style.display = 'block';
+            logoFallback.style.display = 'none';
+            // 检查是否是纪念日（5月16日或17日），如果是则应用灰度
+            if (isMemorialDay()) {
+              serverIcon.classList.add('grayscale');
+              applyGrayscaleToFavicon(data.favicon);
+            } else {
+              favicon.href = data.favicon;
+            }
+          }
+        }
+      } catch (error) {
+        console.error('加载服务器图标失败:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      // 纪念日样式
+      if (isMemorialDay()) {
+        document.body.classList.add('memorial-day');
+      }
+      // 加载地标数据
+      try {
+        const response = await fetch('jsons/landmarks.json');
+        const landmarks = await response.json();
+        
+        const grid = document.getElementById('landmark-grid');
+        landmarks.forEach(landmark => {
+          const card = document.createElement('div');
+          card.className = 'landmark-card';
+          card.onclick = () => openLandmarkModal(landmark.name, landmark.image, landmark.description, landmark.author);
+          card.innerHTML = `
+            <div class="landmark-poster">
+              <img src="${landmark.image}" alt="${landmark.name}" />
+            </div>
+            <div class="landmark-info">
+              <h3>${landmark.name}<span class="landmark-author">by ${landmark.author}</span></h3>
+              <p class="landmark-desc">${landmark.description}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('加载地标数据失败:', error);
+      }
+
+      const hasEasterEgg = checkSeasonalEasterEgg();
+      if (!hasEasterEgg) {
+        loadServerIcon();
+      }
+    });
+  </script>
+</body>
+</html>
