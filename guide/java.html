@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>加入服务器 - Overworld</title>
+  <title>Java 版加入 - Overworld</title>
   <link rel="stylesheet" href="/server/style.css" />
   <link id="favicon" rel="icon" href="" type="image/png" />
   <style>
@@ -18,7 +18,7 @@
 
     .guide-header {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
     .guide-icon {
@@ -39,69 +39,53 @@
       color: #a2a2a2;
     }
 
-    .version-grid {
+    .method-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 30px;
-      max-width: 800px;
+      max-width: 1000px;
       width: 100%;
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
-    .version-card {
+    .method-card {
       background-color: #2a2a2a;
       border: 1px solid #333;
       border-top: 3px solid var(--primary-color);
-      padding: 40px 30px;
+      padding: 40px 25px;
       text-align: center;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-decoration: none;
       display: block;
+      text-decoration: none;
     }
 
-    .version-card:hover {
+    .method-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
     }
 
-    .version-card:active {
+    .method-card:active {
       transform: translateY(-2px);
     }
 
-    .version-card-icon {
-      font-size: 64px;
+    .method-card-icon {
+      font-size: 56px;
       margin-bottom: 20px;
     }
 
-    .version-card-title {
-      font-size: 28px;
+    .method-card-title {
+      font-size: 22px;
       color: white;
       font-weight: 400;
       margin-bottom: 10px;
       font-family: 'MinecraftTen', sans-serif;
     }
 
-    .version-card-ver {
-      font-size: 14px;
+    .method-card-desc {
+      font-size: 13px;
       color: #a2a2a2;
-      margin-bottom: 25px;
-    }
-
-    .version-card-btn {
-      display: inline-block;
-      padding: 10px 30px;
-      background-color: var(--primary-color);
-      color: white;
-      font-size: 14px;
-      font-family: 'Fusion Pixel', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: filter 0.2s ease;
-    }
-
-    .version-card:hover .version-card-btn {
-      filter: brightness(1.1);
+      line-height: 1.5;
     }
 
     .server-address-block {
@@ -149,16 +133,21 @@
       border-color: var(--primary-color);
     }
 
-    .guide-tip {
+    .back-link {
+      display: inline-block;
       margin-top: 30px;
-      font-size: 13px;
-      color: #666;
-      text-align: center;
-      max-width: 500px;
+      color: #a2a2a2;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s ease;
     }
 
-    @media (max-width: 600px) {
-      .version-grid {
+    .back-link:hover {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      .method-grid {
         grid-template-columns: 1fr;
       }
 
@@ -188,32 +177,36 @@
       <span></span>
     </button>
   </nav>
-  <!-- 菜单背景遮罩 -->
   <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
 
   <!-- 引导主内容 -->
   <section class="guide-section">
     <div class="guide-header">
-      <div class="guide-icon">🎮</div>
-      <h1 class="guide-title">加入 Overworld</h1>
-      <p class="guide-subtitle">选择你的游戏版本，开始冒险</p>
+      <div class="guide-icon">☕</div>
+      <h1 class="guide-title">Java 版加入</h1>
+      <p class="guide-subtitle">选择一种方式进入服务器</p>
     </div>
 
-    <div class="version-grid">
-      <!-- Java 版 -->
-      <a class="version-card" href="/server/guide/java.html">
-        <div class="version-card-icon">☕</div>
-        <div class="version-card-title">Java 版</div>
-        <div class="version-card-ver">支持 1.8 — 1.21.11</div>
-        <span class="version-card-btn">直接加入</span>
+    <div class="method-grid">
+      <!-- 直接加入 -->
+      <a class="method-card" href="minecraft://?addExternalServer=Overworld|103.85.86.51:17125">
+        <div class="method-card-icon">🔗</div>
+        <div class="method-card-title">复制地址加入</div>
+        <div class="method-card-desc">点击后将自动打开游戏<br/>并添加服务器</div>
       </a>
 
-      <!-- 基岩版 -->
-      <a class="version-card" href="minecraft://?addExternalServer=Overworld|103.85.86.51:17125">
-        <div class="version-card-icon">🧱</div>
-        <div class="version-card-title">基岩版</div>
-        <div class="version-card-ver">支持最新版</div>
-        <span class="version-card-btn">直接加入</span>
+      <!-- Modrinth App -->
+      <a class="method-card" href="modrinth://play?server=Overworld&ip=103.85.86.51:17125">
+        <div class="method-card-icon">📦</div>
+        <div class="method-card-title">Modrinth App 加入</div>
+        <div class="method-card-desc">在 Modrinth App 中<br/>直接加入服务器</div>
+      </a>
+
+      <!-- 下载整合包 -->
+      <a class="method-card" href="/server/modpack/index.html">
+        <div class="method-card-icon">📥</div>
+        <div class="method-card-title">下载整合包</div>
+        <div class="method-card-desc">下载 Modrinth 整合包<br/>内置服务器配置，开箱即玩</div>
       </a>
     </div>
 
@@ -225,10 +218,7 @@
       </div>
     </div>
 
-    <p class="guide-tip">
-      点击上方卡片将自动打开 Minecraft 并添加服务器。<br/>
-      如未能自动打开，可复制服务器地址手动添加。
-    </p>
+    <a class="back-link" href="/server/guide/index.html">← 返回版本选择</a>
   </section>
 
   <!-- 页脚 -->
